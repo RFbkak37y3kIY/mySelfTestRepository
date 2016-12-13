@@ -4,9 +4,16 @@
     box-sizing: border-box;
 }
 body {
-  background-color: black;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    padding-top: calc(50vh - 50vw);
 }
-div {
+.container {
+  
+}
+.container > div {
     background-color: #2d5252;
     width: 11vw;
     height: 11vw;
@@ -19,17 +26,36 @@ div {
     margin: 0.3vw;
     border-radius: 1vw;
 }
-div:hover {
+.container > div:hover {
     background-color: antiquewhite;
 }
+
+@media screen and (orientation: landscape) { 
+  .container > div {
+    width: 11vh;
+    height: 11vh;
+    margin: 0.3vh;
+    border-radius: 1vh;
+  }
+  .container {
+    width: 100vh;
+    margin: auto;
+    margin-top: 3vh;
+  }
+}
+@media screen and (orientation: portrait) { 
+  .container > div {
+    width: 11vw;
+    height: 11vw;
+    margin: 0.3vw;
+    border-radius: 1vw;
+  }
+}
+
 </style>
-</head><body style="
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    padding-top: calc(50vh - 50vw);
-">
-  <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-
-
+</head>
+<body>
+  <div class="container">
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
 </body></html>
