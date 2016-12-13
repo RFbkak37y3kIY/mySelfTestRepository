@@ -6,7 +6,7 @@ body {
   margin: 0;
   padding: 0;
   text-align: center;
-  padding-top: calc(50vh - 50vw);
+  padding-top: calc(50vh - 66vw);
 }
 .container {
 
@@ -45,4 +45,18 @@ body {
   height: 11vw;
   margin: 2px;
 }
+}
+
+
+.control-panel {
+    /* background-color: aliceblue; */
+    height: 18vh;
+}
+
+.symble {
+    background-color: crimson;
+    width: 25vw;
+    height: 25vw;
+    display: inline-block;
+    margin: 3vw;
 }
