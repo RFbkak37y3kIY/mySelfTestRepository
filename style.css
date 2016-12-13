@@ -20,7 +20,8 @@ body {
   margin: 0;
   padding: 0;
   transition: background-color 0.3s;
-  border-radius: 1vw;
+  border-radius: 9vw;
+  box-shadow: inset -5px -6px 27px #000, 4px 4px 45px rgba(255,255,255,0.5);
 }
 .container > div:hover {
   background-color: antiquewhite;
@@ -30,8 +31,7 @@ body {
 .container > div {
   width: 11vh;
   height: 11vh;
-  margin: 0.1rem;
-  border-radius: 1vh;
+  margin: 2px;
 }
 .container {
   width: 100vh;
@@ -43,7 +43,6 @@ body {
 .container > div {
   width: 11vw;
   height: 11vw;
-  margin: 0.1rem;
-  border-radius: 1vw;
+  margin: 2px;
 }
 }
