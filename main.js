@@ -40,7 +40,7 @@ function TouchStart (event) {
     var targetID = $(screenObj.target).parent().attr('id') || 
                     $(screenObj.target).attr('id');
 
-    if(!!targetID && ["01","02","03"].indexOf(parseInt(targetID)) != -1){
+    if(!!targetID && ["01","02","03"].indexOf(targetID) != -1){
         fly.css('display',"block");
     }
     console.log(targetID,screenObj);
