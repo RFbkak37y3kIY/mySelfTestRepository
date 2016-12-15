@@ -5,7 +5,6 @@
 <body>
  <script type="text/javascript" src="cordova.js"></script>
  <script type="text/javascript" src="com/jquery-full.js"></script>
- 
   <div class="container">
 <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
 <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
@@ -17,15 +16,38 @@
 <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
   </div>
   <div class="control-panel">
-      <div id="01" class="symble"></div>
-      <div id="02" class="symble"></div>
-      <div id="03" class="symble"></div>
+      <div id="01" class="symble"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      <div id="02" class="symble"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      <div id="03" class="symble"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
   </div>
+  <div id="fly" class="symble"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 <script type="text/javascript">
   
     $(".container > div").click(function(e) {
         $(this).css("background-color", "red");
     })
+    $('body').on("mousemove")
+
+    $('body').bind('touchstart', function(event) {
+        var e = event.originalEvent;
+        console.log(e);
+       	e.preventDefault();
+    });
+ 
+    $('body').bind('touchmove', function(event) {
+        var e = event.originalEvent;
+       	console.log(e)
+       	var xx = e.touches[0].screenX*2,
+       		yy = e.touches[0].screenY*2;
+		$('#fly').css('top',yy +"px");
+		$('#fly').css('left',xx +"px");
+        e.preventDefault();
+    });
+    $('body').bind('touchstart', function(event) {
+        var e = event.originalEvent;
+        console.log(e);
+       	e.preventDefault();
+    });
 	
 </script>
 
