@@ -97,3 +97,39 @@ body {
     position: absolute;
     top: 0;
 }
+
+.preloader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(#cbe5f0 0%, #00549a 100%);
+    z-index: 100;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* box-shadow: 2px 2px 5px #fff; */
+}
+
+.preloader::after {
+  content: "Powered by Giper-Troniks (2016)";
+  font-size: 4vw;
+  bottom: 6vh;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-shadow: 2px 2px 3px #FFF;
+}
+
+.preloader::before {
+    background: radial-gradient(skyblue 0%, steelblue 100%);
+}
+
+.preloader .img {
+    background-image: url(img/logo.png);
+    width: 100vw;
+    height: 100vh;
+    background-size: 95%;
+    background-repeat: no-repeat;
+    background-position: center;
+}

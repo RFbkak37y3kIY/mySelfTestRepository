@@ -8,6 +8,10 @@ function main() {
     $('body').bind('touchstart', TouchStart);
     $('body').bind('touchmove', TouchMove);
     $('body').bind('touchend', TouchEnd);
+
+    setTimeout(function(){
+        $('.preloader').fadeOut(600);
+    }, 1000);
 }
 function setupScreen(){
     for(var i=1; i<=8;i++){
