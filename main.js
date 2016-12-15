@@ -36,9 +36,13 @@ function TouchStart (event) {
     status(screenObj);
     fly.css('top',yy +"px");
     fly.css('left',xx +"px");
-    fly.css('display',"block");
+    
     var targetID = $(screenObj.target).parent().attr('id') || 
                     $(screenObj.target).attr('id');
+
+    if(!!targetID && ["01","02","03"].indexOf(parseInt(targetID)) != -1){
+        fly.css('display',"block");
+    }
     console.log(targetID,screenObj);
     e.preventDefault();
 }
