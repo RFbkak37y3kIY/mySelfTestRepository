@@ -51,8 +51,8 @@ body {
 
 #fly {
   position:absolute;
-  width: 35vw;
-  height: 35vw;
+  width: 37vw;
+  height: 37vw;
 }
 .control-panel {
     /* background-color: aliceblue; */
@@ -70,7 +70,7 @@ body {
     text-align: center;
 }
 #fly.symble {
-  background-color: initial;
+  /* background-color: initial; */
 }
 #fly.symble > div {
     width: 11vw;
