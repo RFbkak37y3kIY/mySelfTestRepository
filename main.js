@@ -29,17 +29,11 @@ function TouchStart (event) {
     var e = event.originalEvent,
         fly = $('#fly'),
         screenObj = e.touches[0],
-        xx = screenObj.pageX,
-        yy = screenObj.pageY;
+        fp = getFlyPos(),
+        xx = screenObj.pageX - fp.w/2,
+        yy = screenObj.pageY - fp.h;
     
-    status({
-        sX: screenObj.screenX.toFixed(2),
-        sY: screenObj.screenY.toFixed(2),
-        pX: screenObj.pageX.toFixed(2),
-        pY: screenObj.pageY.toFixed(2),
-        cX: screenObj.clientX.toFixed(2),
-        cY: screenObj.clientY.toFixed(2)
-    });
+    status(screenObj);
     fly.css('top',yy +"px");
     fly.css('left',xx +"px");
     fly.css('display',"block");
@@ -53,18 +47,11 @@ function TouchMove (event) {
     var e = event.originalEvent,
         screenObj = e.touches[0],
         fp = getFlyPos(),
-        xx = e.touches[0].pageX - fp.w / 2,
-        yy = e.touches[0].pageY - fp.h / 2;
+        xx = screenObj.pageX - fp.w/2,
+        yy = screenObj.pageY - fp.h;
 
 
-    status({
-        sX: screenObj.screenX.toFixed(2),
-        sY: screenObj.screenY.toFixed(2),
-        pX: screenObj.pageX.toFixed(2),
-        pY: screenObj.pageY.toFixed(2),
-        cX: screenObj.clientX.toFixed(2),
-        cY: screenObj.clientY.toFixed(2)
-    });
+    status(screenObj);
     $('#fly').css('top',yy +"px");
     $('#fly').css('left',xx +"px");
     e.preventDefault();
@@ -84,7 +71,15 @@ function getFlyPos() {
         y: parseInt($('#fly').css('top'))
     }
 }
-function status(obj){
+function status(screenObj){
+    var obj = {
+        sX: screenObj.screenX.toFixed(2),
+        sY: screenObj.screenY.toFixed(2),
+        pX: screenObj.pageX.toFixed(2),
+        pY: screenObj.pageY.toFixed(2),
+        cX: screenObj.clientX.toFixed(2),
+        cY: screenObj.clientY.toFixed(2)
+    }
     var s = "screen (x:"+obj.sX+", y:"+obj.sY+")<br>page (x:"+obj.pX+", y:"+obj.pY+")<br>client (x:"+obj.cX+", y:"+obj.cY+")<br>";
     $('.status').html(s);
 }

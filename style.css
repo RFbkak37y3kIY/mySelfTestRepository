@@ -70,7 +70,7 @@ body {
     text-align: center;
 }
 #fly.symble {
-  /* background-color: initial; */
+  background-color: initial;
 }
 #fly.symble > div {
     width: 11vw;
