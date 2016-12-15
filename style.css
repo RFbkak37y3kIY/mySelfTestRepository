@@ -121,7 +121,7 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  text-shadow: 2px 2px 3px #FFF;
+  text-shadow: 1px 1px 1px #FFF;
 }
 
 .preloader::before {
