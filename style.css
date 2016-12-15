@@ -60,13 +60,14 @@ body {
 }
 
 .symble {
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255,255,255,0.2);
     width: 25vw;
-    height: 25vw;
+    /* height: 25vw; */
     display: inline-block;
     margin: 3vw;
     border-radius: 3vw;
     padding-top: 1vw;
+    padding-bottom: 1vw;
     text-align: center;
 }
 #fly.symble {
@@ -83,7 +84,7 @@ body {
 .symble > div {
     width: 7vw;
     height: 7vw;
-    background-color: aqua;
+    background-color: black;
     display: inline-block;
     margin: 0.1rem;
     border-radius: 5vw;
