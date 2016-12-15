@@ -72,6 +72,8 @@ body {
 }
 #fly.symble {
   background-color: initial;
+  transition: left 0.1s,top 0.1s;
+  transition-timing-function: ease-out;
 }
 #fly.symble > div {
     width: 11vw;
