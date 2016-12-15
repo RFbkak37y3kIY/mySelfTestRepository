@@ -25,8 +25,8 @@ function TouchStart (event) {
     var e = event.originalEvent,
         fly = $('#fly'),
         screenObj = e.touches[0],
-        xx = screenObj.pageX-150,
-        yy = screenObj.pageY-300;
+        xx = screenObj.pageX,
+        yy = screenObj.pageY;
     
     status({
         sX: screenObj.screenX.toFixed(2),
@@ -48,8 +48,8 @@ function TouchStart (event) {
 function TouchMove (event) {
     var e = event.originalEvent,
         screenObj = e.touches[0],
-        xx = e.touches[0].pageX-150,
-        yy = e.touches[0].pageY-300;
+        xx = e.touches[0].pageX,
+        yy = e.touches[0].pageY;
         
     status({
         sX: screenObj.screenX.toFixed(2),
