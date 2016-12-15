@@ -37,8 +37,8 @@
     $('body').bind('touchmove', function(event) {
         var e = event.originalEvent;
        	console.log(e)
-       	var xx = e.touches[0].screenX*2,
-       		yy = e.touches[0].screenY*2;
+       	var xx = e.touches[0].pageX,
+       		yy = e.touches[0].pageY;
 		$('#fly').css('top',yy +"px");
 		$('#fly').css('left',xx +"px");
         e.preventDefault();

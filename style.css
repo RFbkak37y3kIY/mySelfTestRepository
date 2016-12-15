@@ -23,7 +23,7 @@ body {
   padding: 0;
   transition: background-color 0.3s;
   border-radius: 9vw;
-  box-shadow: inset -5px -6px 27px #000;
+  /* box-shadow: inset -5px -6px 27px #000; */
 }
 .container > div:hover {
   background-color: antiquewhite;
