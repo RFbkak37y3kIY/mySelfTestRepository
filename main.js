@@ -48,9 +48,11 @@ function TouchStart (event) {
 function TouchMove (event) {
     var e = event.originalEvent,
         screenObj = e.touches[0],
-        xx = e.touches[0].pageX,
-        yy = e.touches[0].pageY;
-        
+        fp = getFlyPos(),
+        xx = e.touches[0].pageX - fp.w / 2,
+        yy = e.touches[0].pageY - fp.h / 2;
+
+
     status({
         sX: screenObj.screenX.toFixed(2),
         sY: screenObj.screenY.toFixed(2),
@@ -70,7 +72,14 @@ function TouchEnd (event) {
     console.log("touch END")
     e.preventDefault();
 }
-
+function getFlyPos() {
+    return {
+        w: parseInt($('#fly').css('width')),
+        h: parseInt($('#fly').css('height')),
+        x: parseInt($('#fly').css('left')),
+        y: parseInt($('#fly').css('top'))
+    }
+}
 function status(obj){
     var s = "screen (x:"+obj.sX+", y:"+obj.sY+")<br>page (x:"+obj.pX+", y:"+obj.pY+")<br>client (x:"+obj.cX+", y:"+obj.cY+")<br>";
     $('.status').html(s);
