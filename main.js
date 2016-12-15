@@ -28,19 +28,37 @@ function TouchStart (event) {
         xx = screenObj.pageX-150,
         yy = screenObj.pageY-300;
     
+    status({
+        sX: screenObj.screenX.toFixed(2),
+        sY: screenObj.screenY.toFixed(2),
+        pX: screenObj.pageX.toFixed(2),
+        pY: screenObj.pageY.toFixed(2),
+        cX: screenObj.clientX.toFixed(2),
+        cY: screenObj.clientY.toFixed(2)
+    });
     fly.css('top',yy +"px");
     fly.css('left',xx +"px");
     fly.css('display',"block");
     var targetID = $(screenObj.target).parent().attr('id') || 
                     $(screenObj.target).attr('id');
-    console.log(targetID);
+    console.log(targetID,screenObj);
     e.preventDefault();
 }
 
 function TouchMove (event) {
-    var e = event.originalEvent;
-    var xx = e.touches[0].pageX-150,
+    var e = event.originalEvent,
+        screenObj = e.touches[0],
+        xx = e.touches[0].pageX-150,
         yy = e.touches[0].pageY-300;
+        
+    status({
+        sX: screenObj.screenX.toFixed(2),
+        sY: screenObj.screenY.toFixed(2),
+        pX: screenObj.pageX.toFixed(2),
+        pY: screenObj.pageY.toFixed(2),
+        cX: screenObj.clientX.toFixed(2),
+        cY: screenObj.clientY.toFixed(2)
+    });
     $('#fly').css('top',yy +"px");
     $('#fly').css('left',xx +"px");
     e.preventDefault();
@@ -53,3 +71,7 @@ function TouchEnd (event) {
     e.preventDefault();
 }
 
+function status(obj){
+    var s = "screen (x:"+obj.sX+", y:"+obj.sY+")<br>page (x:"+obj.pX+", y:"+obj.pY+")<br>client (x:"+obj.cX+", y:"+obj.cY+")<br>";
+    $('.status').html(s);
+}

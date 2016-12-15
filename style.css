@@ -77,3 +77,12 @@ body {
     margin: 0.1rem;
     border-radius: 5vw;
 }
+
+.status {
+    color: #fff;
+    font-size: 4vw;
+    text-align: left;
+    padding: 5vw;
+    position: absolute;
+    top: 0;
+}
