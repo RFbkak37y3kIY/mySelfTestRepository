@@ -31,7 +31,7 @@ function TouchStart (event) {
         screenObj = e.touches[0],
         fp = getFlyPos(),
         xx = screenObj.pageX - fp.w/2,
-        yy = screenObj.pageY - fp.h;
+        yy = screenObj.pageY - fp.h*1.5;
     
     status(screenObj);
     fly.css('top',yy +"px");
@@ -48,7 +48,7 @@ function TouchMove (event) {
         screenObj = e.touches[0],
         fp = getFlyPos(),
         xx = screenObj.pageX - fp.w/2,
-        yy = screenObj.pageY - fp.h;
+        yy = screenObj.pageY - fp.h*1.5;
 
 
     status(screenObj);
