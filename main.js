@@ -19,19 +19,31 @@ function setupScreen(){
             $( ".container" ).append( '<div id="x'+i+'y'+j+'"></div>' );
         }
     }
+    reDrowElement("#01");
+    reDrowElement("#02");
+    reDrowElement("#03");
+    reDrowElement("#fly");
+}
+function reDrowElement(id){
     var color = [
         "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
         "#FF0",
-        "#FFF",
+        "#0FF",
         "#F00",
         "#0F0",
-        "#00F"
+        "#00F",
+        "#FFF"
     ];
-    for(var i=1; i<=3;i++){
-        for(var j=1; j<=3;j++){
-            $( ".symble" ).append( '<div id="x'+i+'y'+j+'" style="background-color: '+color[Math.floor(Math.random()*color.length)]+'"></div>' );
-        }
-    }    
+    for(var i=1; i<=3; i++)
+    for(var j=1; j<=3; j++){
+        $( id+".symble" ).append( '<div id="x'+i+'y'+j+'" style="background-color: '+color[Math.floor(Math.random()*color.length)]+'"></div>' );
+    }
 }
 function TouchStart (event) {
     var e = event.originalEvent,
