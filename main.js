@@ -1,10 +1,9 @@
-main();
+var oSettings = {
+    lastSelector: "#01"
+}
 function main() {
     setupScreen()
-    $(".container > div").click(function(e) {
-        $(this).css("background-color", "red");
-    });
-
+    
     $('body').bind('touchstart', TouchStart);
     $('body').bind('touchmove', TouchMove);
     $('body').bind('touchend', TouchEnd);
@@ -25,14 +24,15 @@ function setupScreen(){
     reDrowElement("#fly");
 }
 function reDrowElement(id){
+    var black = id == "#fly"? "rgba(0,0,0,0)": "#000";
     var color = [
-        "#000",
-        "#000",
-        "#000",
-        "#000",
-        "#000",
-        "#000",
-        "#000",
+        black,
+        black,
+        black,
+        black,
+        black,
+        black,
+        black,
         "#FF0",
         "#0FF",
         "#F00",
@@ -59,21 +59,27 @@ function TouchStart (event) {
     
     var targetID = $(screenObj.target).parent().attr('id') || 
                     $(screenObj.target).attr('id');
-
+    copycolorsInFly("#"+targetID);
     if(!!targetID && ["01","02","03"].indexOf(targetID) != -1){
         fly.css('display',"block");
     }
     console.log(targetID,screenObj);
     e.preventDefault();
 }
-
+function copycolorsInFly(fromID){
+    var color, isColor;
+    for(var i=0;i<=9;i++){
+        color = $($(fromID+" div")[i]).css("background-color")
+        isColor = color == "rgb(0, 0, 0)"? "rgba(0,0,0,0)": color;
+        $($("#fly div")[i]).css("background-color", isColor)
+    }
+}
 function TouchMove (event) {
     var e = event.originalEvent,
         screenObj = e.touches[0],
         fp = getFlyPos(),
         xx = screenObj.pageX - fp.w/2,
         yy = screenObj.pageY - fp.h*1.5;
-
 
     status(screenObj);
     $('#fly').css('top',yy +"px");
@@ -107,3 +113,4 @@ function status(screenObj){
     var s = "screen (x:"+obj.sX+", y:"+obj.sY+")<br>page (x:"+obj.pX+", y:"+obj.pY+")<br>client (x:"+obj.cX+", y:"+obj.cY+")<br>";
     $('.status').html(s);
 }
+main();
