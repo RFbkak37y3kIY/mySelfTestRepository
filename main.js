@@ -19,9 +19,17 @@ function setupScreen(){
             $( ".container" ).append( '<div id="x'+i+'y'+j+'"></div>' );
         }
     }
+    var color = [
+        "#000",
+        "#FF0",
+        "#FFF",
+        "#F00",
+        "#0F0",
+        "#00F"
+    ];
     for(var i=1; i<=3;i++){
         for(var j=1; j<=3;j++){
-            $( ".symble" ).append( '<div id="x'+i+'y'+j+'"></div>' );
+            $( ".symble" ).append( '<div id="x'+i+'y'+j+'" style="background-color: '+color[Math.floor(Math.random()*color.length)]+'"></div>' );
         }
     }    
 }
