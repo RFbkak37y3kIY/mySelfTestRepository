@@ -82,7 +82,7 @@ function HitTest() {
     var posDesk, 
         posFly = $($('#fly div')[0]).position(), 
         posParent = $('#fly').position(), 
-        dx, dy, d = 50,
+        dx, dy, d = 60,
         currentEl;
     $(".container div").css("background-color", '');
     
@@ -95,7 +95,7 @@ function HitTest() {
             dy = posDesk.top - (posParent.top + posFly.top);
             if(dx > -d && dx < d && dy > -d && dy < d ){
                 currentEl.css("background-color", $($('#fly div')[0]).css("background-color"));
-                break;
+                return;
             }
         }
     }
