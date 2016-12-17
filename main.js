@@ -94,7 +94,7 @@ function HitTest() {
         posParent = $('#fly').position(), 
         dx, dy, d = 120,
         currentEl;
-    $(".container div").css("background-color", '');
+    $(".container div").css("background-color", null);
     
 
     for(var i=1; i<=6;i++){
