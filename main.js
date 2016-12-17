@@ -94,7 +94,28 @@ function HitTest() {
             dx = posDesk.left - (posParent.left + posFly.left);
             dy = posDesk.top - (posParent.top + posFly.top);
             if(dx > 0 && dx < d && dy > 0 && dy < d ){
-                currentEl.css("background-color", $($('#fly div')[0]).css("background-color"));
+                //currentEl.css("background-color", $($('#fly div')[0]).css("background-color"));
+                $( ".container div#x"+(j+0)+"y"+(i+0))
+                    .css("background-color", $($('#fly div')[0]).css("background-color"));
+                $( ".container div#x"+(j+1)+"y"+(i+0))
+                    .css("background-color", $($('#fly div')[1]).css("background-color"));
+                $( ".container div#x"+(j+2)+"y"+(i+0))
+                    .css("background-color", $($('#fly div')[2]).css("background-color"));
+                
+                $( ".container div#x"+(j+0)+"y"+(i+1))
+                    .css("background-color", $($('#fly div')[3]).css("background-color"));
+                $( ".container div#x"+(j+1)+"y"+(i+1))
+                    .css("background-color", $($('#fly div')[4]).css("background-color"));
+                $( ".container div#x"+(j+2)+"y"+(i+1))
+                    .css("background-color", $($('#fly div')[5]).css("background-color"));
+                
+                $( ".container div#x"+(j+0)+"y"+(i+2))
+                    .css("background-color", $($('#fly div')[6]).css("background-color"));
+                $( ".container div#x"+(j+1)+"y"+(i+2))
+                    .css("background-color", $($('#fly div')[7]).css("background-color"));
+                $( ".container div#x"+(j+2)+"y"+(i+2))
+                    .css("background-color", $($('#fly div')[8]).css("background-color"));
+                
                 return;
             }
         }
