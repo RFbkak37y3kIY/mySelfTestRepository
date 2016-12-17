@@ -1,5 +1,15 @@
 var oSettings = {
-    lastSelector: "#01"
+    lastSelector: "#01",
+    map: [
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0]
+    ]
 }
 function main() {
     setupScreen()
@@ -87,39 +97,28 @@ function HitTest() {
     $(".container div").css("background-color", '');
     
 
-    for(var i=1; i<=8;i++){
-        for(var j=1; j<=8;j++){
+    for(var i=1; i<=6;i++){
+        for(var j=1; j<=6;j++){
             currentEl = $( ".container div#x"+j+"y"+i);
             posDesk = currentEl.position();
             dx = posDesk.left - (posParent.left + posFly.left);
             dy = posDesk.top - (posParent.top + posFly.top);
             if(dx > 0 && dx < d && dy > 0 && dy < d ){
-                //currentEl.css("background-color", $($('#fly div')[0]).css("background-color"));
-                $( ".container div#x"+(j+0)+"y"+(i+0))
-                    .css("background-color", $($('#fly div')[0]).css("background-color"));
-                $( ".container div#x"+(j+1)+"y"+(i+0))
-                    .css("background-color", $($('#fly div')[1]).css("background-color"));
-                $( ".container div#x"+(j+2)+"y"+(i+0))
-                    .css("background-color", $($('#fly div')[2]).css("background-color"));
-                
-                $( ".container div#x"+(j+0)+"y"+(i+1))
-                    .css("background-color", $($('#fly div')[3]).css("background-color"));
-                $( ".container div#x"+(j+1)+"y"+(i+1))
-                    .css("background-color", $($('#fly div')[4]).css("background-color"));
-                $( ".container div#x"+(j+2)+"y"+(i+1))
-                    .css("background-color", $($('#fly div')[5]).css("background-color"));
-                
-                $( ".container div#x"+(j+0)+"y"+(i+2))
-                    .css("background-color", $($('#fly div')[6]).css("background-color"));
-                $( ".container div#x"+(j+1)+"y"+(i+2))
-                    .css("background-color", $($('#fly div')[7]).css("background-color"));
-                $( ".container div#x"+(j+2)+"y"+(i+2))
-                    .css("background-color", $($('#fly div')[8]).css("background-color"));
-                
+                setColor(j,i,0)(j+1,i,1)(j+2,i,2)(j,i+1,3)(j+1,i+1,4)(j+2,i+1,5)(j,i+2,6)(j+1,i+2,7)(j+2,i+2,8);
                 return;
             }
         }
     }
+}
+function setColor(x,y,id){
+    var color = $($('#fly div')[id]).css("background-color"),
+        el = $( ".container div#x"+x+"y"+y)
+
+    if(el.length && color != "rgba(0, 0, 0, 0)"){
+        el.css("background-color", color);
+        oSettings.map[x-1][y-1] = color;
+    }
+    return arguments.callee;
 }
 function TouchEnd (event) {
     var e = event.originalEvent;
