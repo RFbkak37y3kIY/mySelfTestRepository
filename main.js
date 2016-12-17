@@ -15,35 +15,20 @@ function main() {
 function setupScreen(){
     for(var i=1; i<=8;i++){
         for(var j=1; j<=8;j++){
-            $( ".container" ).append( '<div id="x'+i+'y'+j+'"></div>' );
+            $( ".container" ).append( '<div id="x'+j+'y'+i+'"></div>' );
         }
     }
-    reDrowElement("#01");
-    reDrowElement("#02");
-    reDrowElement("#03");
-    reDrowElement("#fly");
+    reDrowElement("#01")("#02")("#03")("#fly");
 }
 function reDrowElement(id){
     var black = id == "#fly"? "rgba(0,0,0,0)": "#000";
-    var color = [
-        black,
-        black,
-        black,
-        black,
-        black,
-        black,
-        black,
-        "#FF0",
-        "#0FF",
-        "#F00",
-        "#0F0",
-        "#00F",
-        "#FFF"
-    ];
+    var color = [black,black,black,black,black,"#FF0","#0FF","#F00","#0F0","#00F","#FFF", "#F0F"];
     for(var i=1; i<=3; i++)
     for(var j=1; j<=3; j++){
-        $( id+".symble" ).append( '<div id="x'+i+'y'+j+'" style="background-color: '+color[Math.floor(Math.random()*color.length)]+'"></div>' );
+        $( id+".symble" ).append( '<div id="x'+i+'y'+j+'" style="background-color: '
+        +color[Math.floor(Math.random()*color.length)]+'"></div>' );
     }
+    return arguments.callee;
 }
 function TouchStart (event) {
     var e = event.originalEvent,
@@ -84,9 +69,37 @@ function TouchMove (event) {
     status(screenObj);
     $('#fly').css('top',yy +"px");
     $('#fly').css('left',xx +"px");
+
+    $('.container div').css('background-color', '');
+    
+    // $('.container div#x'+xx+'y'+yy).css('background-color', '');
+    
+    HitTest();
+
     e.preventDefault();
 }
+function HitTest() {
+    var posDesk, 
+        posFly = $($('#fly div')[0]).position(), 
+        posParent = $('#fly').position(), 
+        dx, dy, d = 50,
+        currentEl;
+    $(".container div").css("background-color", '');
+    
 
+    for(var i=1; i<=8;i++){
+        for(var j=1; j<=8;j++){
+            currentEl = $( ".container div#x"+j+"y"+i);
+            posDesk = currentEl.position();
+            dx = posDesk.left - (posParent.left + posFly.left);
+            dy = posDesk.top - (posParent.top + posFly.top);
+            if(dx > -d && dx < d && dy > -d && dy < d ){
+                currentEl.css("background-color", $($('#fly div')[0]).css("background-color"));
+                break;
+            }
+        }
+    }
+}
 function TouchEnd (event) {
     var e = event.originalEvent;
     $('#fly').css('display',"none");

@@ -25,9 +25,6 @@ body {
   border-radius: 9vw;
   /* box-shadow: inset -5px -6px 27px #000; */
 }
-.container > div:hover {
-  background-color: antiquewhite;
-}
 
 @media screen and (orientation: landscape) { 
 .container > div {
@@ -72,8 +69,9 @@ body {
 }
 #fly.symble {
   background-color: initial;
-  transition: left 0.1s,top 0.1s;
-  transition-timing-function: ease-out;
+  /* transition: left 0.1s,top 0.1s; */
+  /* transition-timing-function: ease-out; */
+  opacity: 0.3;
 }
 #fly.symble > div {
     width: 11vw;
@@ -99,6 +97,7 @@ body {
     padding: 5vw;
     position: absolute;
     top: 0;
+    display: none;
 }
 
 .preloader {
