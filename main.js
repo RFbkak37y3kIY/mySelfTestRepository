@@ -184,23 +184,18 @@ function lh(x,y) {
     return x+y*100;
 };
 function isCan(x, y){
-    var a, 
-        f = [[],[],[]],
-        k=0,
-        c, 
-        out = 1;
-        x = Math.min(x-1,5);
-        y = Math.min(y-1,5);
-    
+    var a,f=[[],[],[]],b=[[],[],[]],k=0,c,out=1;
+    x = Math.min(x-1,5);
+    y = Math.min(y-1,5);
     for(var i=0;i<3;i++){
         a = oSettings.map[i+x].map(a => (a!=0)+0)
         for(var j=0;j<3;j++){
             c = $($('#fly div')[k++]).css('background-color');
             f[i][j] = (c != "rgba(0, 0, 0, 0)")+0;
-            out &= !(a[j+y]&f[j][i])
+            b[j][i] = a[j+y];
         }
     }
-    console.log(f)
+    for(var i=0;i<3;i++)for(var j=0;j<3;j++)out&=!(b[j][i]&f[j][i]);
     return out;
 }
 function hash2 (ss, l){
