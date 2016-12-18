@@ -69,7 +69,7 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
-        <preference name="Fullscreen" value="true" />
+        <preference name="Fullscreen" value="false" />
         <preference name="Orientation" value="portrait" />
         
         <!-- you can use any density that exists in the Android project -->
