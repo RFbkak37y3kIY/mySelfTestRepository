@@ -43,6 +43,8 @@ body {
   width: 11vw;
   height: 11vw;
   margin: 2px;
+  /* transform: scale(0.2,5.0); */
+  transition: transform 0.2s;
 }
 }
 

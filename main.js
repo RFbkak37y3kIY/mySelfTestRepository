@@ -9,7 +9,8 @@ var oSettings = {
         [0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0]
-    ]
+    ],
+    hash:'eafb5775474fed1ce116ed6114ecb0e8'
 }
 function main() {
     setupScreen()
@@ -153,8 +154,10 @@ function TouchEnd (event) {
     $('#fly').css('display',"none");
     console.log("touch END")
     saveMap();
-
-    reDrowElement(oSettings.lastSelector)
+    if( oSettings.hash != hash2(oSettings.map.toString())){
+        oSettings.hash = hash2(oSettings.map.toString());
+        reDrowElement(oSettings.lastSelector)
+    }
     e.preventDefault();
 }
 function getFlyPos() {
@@ -188,6 +191,7 @@ function isCan(x, y){
         out = 1;
         x = Math.min(x-1,5);
         y = Math.min(y-1,5);
+    
     for(var i=0;i<3;i++){
         a = oSettings.map[i+x].map(a => (a!=0)+0)
         for(var j=0;j<3;j++){
@@ -196,6 +200,13 @@ function isCan(x, y){
             out &= !(a[j+y]&f[j][i])
         }
     }
+    console.log(f)
     return out;
+}
+function hash2 (ss, l){
+    l=l||32;ss=ss||"";var a=new Uint8Array(ss.split('').map(a => a.charCodeAt(0))),
+    s=a.length||1,i=a.length?a.reduce((p,c)=>p+c):1,s="",A,B,k=0,tan=Math.tan;
+    while (s.length < l){A=a[k++%s]||0.5;B=a[k++%s]||1.5;i=i+(A^B)%l;s+=tan(i*B/A).toString(16).split('.')[1];}
+    return s.slice(0, l);
 }
 main();
