@@ -33,6 +33,7 @@ function setupScreen(){
 function reDrowElement(id){
     var black = id == "#fly"? "rgba(0,0,0,0)": "#000";
     var color = [black,black,black,black,black,"#FF0","#0FF","#F00","#0F0","#00F","#FFF", "#F0F"];
+    $( id+".symble" ).html('');
     for(var i=1; i<=3; i++)
     for(var j=1; j<=3; j++){
         $( id+".symble" ).append( '<div id="x'+i+'y'+j+'" style="background-color: '
@@ -48,16 +49,20 @@ function TouchStart (event) {
         xx = screenObj.pageX - fp.w/2,
         yy = screenObj.pageY - fp.h*1.5;
     
-    status(screenObj);
-    fly.css('top',yy +"px");
-    fly.css('left',xx +"px");
+    
     
     var targetID = $(screenObj.target).parent().attr('id') || 
                     $(screenObj.target).attr('id');
-    copycolorsInFly("#"+targetID);
+    
     if(!!targetID && ["01","02","03"].indexOf(targetID) != -1){
+        copycolorsInFly("#"+targetID);
         fly.css('display',"block");
+        fly.css('top',yy +"px");
+        fly.css('left',xx +"px");
+        oSettings.lastSelector = '#' + targetID;
+        
     }
+    
     console.log(targetID,screenObj);
     e.preventDefault();
 }
@@ -105,7 +110,9 @@ function HitTest() {
             dx = posDesk.left - (posParent.left + posFly.left);
             dy = posDesk.top - (posParent.top + posFly.top);
             if(dx > 0 && dx < d && dy > 0 && dy < d ){
-                setColorFly(j,i,0)(j+1,i,1)(j+2,i,2)(j,i+1,3)(j+1,i+1,4)(j+2,i+1,5)(j,i+2,6)(j+1,i+2,7)(j+2,i+2,8);
+                if(isCan(j, i)){
+                    setColorFly(j,i,0)(j+1,i,1)(j+2,i,2)(j,i+1,3)(j+1,i+1,4)(j+2,i+1,5)(j,i+2,6)(j+1,i+2,7)(j+2,i+2,8);
+                }
                 return;
             }
         }
@@ -119,9 +126,11 @@ function setMap(){
     }
 }
 function saveMap(){
+    var c;
     for(var i=1; i<=8;i++){
         for(var j=1; j<=8;j++){
-            oSettings.map[i-1][j-1] = $( ".container div#x"+i+"y"+j).css("background-color");
+            c = $( ".container div#x"+i+"y"+j).css("background-color");
+            oSettings.map[i-1][j-1] = c == "rgb(26, 26, 26)"? 0: c;
         }
     }
 }
@@ -144,6 +153,8 @@ function TouchEnd (event) {
     $('#fly').css('display',"none");
     console.log("touch END")
     saveMap();
+
+    reDrowElement(oSettings.lastSelector)
     e.preventDefault();
 }
 function getFlyPos() {
@@ -165,5 +176,26 @@ function status(screenObj){
     }
     var s = "screen (x:"+obj.sX+", y:"+obj.sY+")<br>page (x:"+obj.pX+", y:"+obj.pY+")<br>client (x:"+obj.cX+", y:"+obj.cY+")<br>";
     $('.status').html(s);
+}
+function lh(x,y) {
+    return x+y*100;
+};
+function isCan(x, y){
+    var a, 
+        f = [[],[],[]],
+        k=0,
+        c, 
+        out = 1;
+        x = Math.min(x-1,5);
+        y = Math.min(y-1,5);
+    for(var i=0;i<3;i++){
+        a = oSettings.map[i+x].map(a => (a!=0)+0)
+        for(var j=0;j<3;j++){
+            c = $($('#fly div')[k++]).css('background-color');
+            f[i][j] = (c != "rgba(0, 0, 0, 0)")+0;
+            out &= !(a[j+y]&f[j][i])
+        }
+    }
+    return out;
 }
 main();
