@@ -1,6 +1,6 @@
 *, *::before, *::after {
   box-sizing: border-box;
-  max-width: 100vw;
+  max-width: 100%;
 }
 body {
   background-color: #000;
@@ -53,7 +53,7 @@ body {
 }
 
 .symble {
-    background-color: rgba(255,255,255,0.2);
+    /* background-color: rgba(255,255,255,0.2); */
     width: 25vw;
     /* height: 25vw; */
     display: inline-block;
@@ -108,6 +108,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     /* box-shadow: 2px 2px 5px #fff; */
+    text-align: center;
 }
 
 .preloader::after {
@@ -149,12 +150,18 @@ body {
 }
 
 .layer {
-    background: url(img/bg.png);
-    background-size: contain;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
+background: #45484d; /* Old browsers */
+background: -moz-linear-gradient(-45deg,  #45484d 0%, #000000 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  #45484d 0%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  #45484d 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
     text-align: center;
     padding-top: calc(50vh - 66vw);
     overflow: hidden;
     height: 100vh;
+    max-width: 100vw;
     filter: blur(15px);
 }
 .btn {

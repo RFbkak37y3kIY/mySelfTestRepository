@@ -22,22 +22,21 @@ function main() {
     	
     $('.btn#start').click(function(e){
     	$('body').bind('touchstart', TouchStart);
-			$('body').bind('touchmove', TouchMove);
-			$('body').bind('touchend', TouchEnd);	
+		
+		$('body').bind('touchend', TouchEnd);	
 	   	
     	console.log("start")
 	   	$('.windowLayer').fadeOut();
 	   	$('.layer').css('filter', 'blur(0)');
-	   /*	setTimeout(()=>{
-			$('body').bind('touchstart', TouchStart);
-			$('body').bind('touchmove', TouchMove);
-			$('body').bind('touchend', TouchEnd);	
-	   	},1000)*/
 	   	
 	});
 	$('.btn#startAgein').click(function(e){
 	   $('.windowLayer').fadeOut();
 	   $('.layer').css('filter', 'blur(0)');
+	   $('body').bind('touchstart', TouchStart);
+		$('body').bind('touchmove', TouchMove);
+		$('body').bind('touchend', TouchEnd);	
+	   	
 	});
 	
 }
@@ -92,19 +91,11 @@ function TouchStart (event) {
         fly.css('top',yy +"px");
         fly.css('left',xx +"px");
         oSettings.lastSelector = '#' + targetID;
-        
+        $('body').bind('touchmove', TouchMove);
     }
     
     // console.log(targetID,screenObj);
     e.preventDefault();
-}
-function copycolorsInFly(fromID){
-    var color, isColor;
-    for(var i=0;i<=9;i++){
-        color = $($(fromID+" div")[i]).css("background-color")
-        isColor = color == "rgb(0, 0, 0)"? EMPTY_COLOR: color;
-        $($("#fly div")[i]).css("background-color", isColor)
-    }
 }
 function TouchMove (event) {
     var e = event.originalEvent,
@@ -112,7 +103,6 @@ function TouchMove (event) {
         fp = getFlyPos(),
         xx = screenObj.pageX - fp.w/2,
         yy = screenObj.pageY - fp.h*1.5;
-
     
     $('#fly').css('top',yy +"px");
     $('#fly').css('left',xx +"px");
@@ -125,6 +115,15 @@ function TouchMove (event) {
 
     e.preventDefault();
 }
+function copycolorsInFly(fromID){
+    var color, isColor;
+    for(var i=0;i<=9;i++){
+        color = $($(fromID+" div")[i]).css("background-color")
+        isColor = color == "rgb(0, 0, 0)"? EMPTY_COLOR: color;
+        $($("#fly div")[i]).css("background-color", isColor)
+    }
+}
+
 function HitTest() {
     var posDesk, 
         posFly = $($('#fly div')[0]).position(), 
@@ -192,6 +191,7 @@ function TouchEnd (event) {
     }
     isLineDel();
     oSettings.hash = hash2(oSettings.map.toString());
+    $('body').unbind('touchmove', TouchMove);
     e.preventDefault();
 }
 function getFlyPos() {
