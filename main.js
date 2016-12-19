@@ -1,5 +1,7 @@
+var EMPTY_COLOR = "rgba(0, 0, 0, 0)";
 var oSettings = {
     lastSelector: "#01",
+    emptyColor: "rgba(0, 0, 0, 0.4)",
     map: [
         [0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0],
@@ -32,7 +34,7 @@ function setupScreen(){
     reDrowElement("#01")("#02")("#03")("#fly");
 }
 function reDrowElement(id){
-    var black = id == "#fly"? "rgba(0,0,0,0)": "#000";
+    var black = id == "#fly"? EMPTY_COLOR: "#000";
     var color = [black,black,black,black,black,"#FF0","#0FF","#F00","#0F0","#00F","#FFF", "#F0F"];
     $( id+".symble" ).html('');
     for(var i=1; i<=3; i++)
@@ -64,14 +66,14 @@ function TouchStart (event) {
         
     }
     
-    console.log(targetID,screenObj);
+    // console.log(targetID,screenObj);
     e.preventDefault();
 }
 function copycolorsInFly(fromID){
     var color, isColor;
     for(var i=0;i<=9;i++){
         color = $($(fromID+" div")[i]).css("background-color")
-        isColor = color == "rgb(0, 0, 0)"? "rgba(0,0,0,0)": color;
+        isColor = color == "rgb(0, 0, 0)"? EMPTY_COLOR: color;
         $($("#fly div")[i]).css("background-color", isColor)
     }
 }
@@ -82,7 +84,7 @@ function TouchMove (event) {
         xx = screenObj.pageX - fp.w/2,
         yy = screenObj.pageY - fp.h*1.5;
 
-    status(screenObj);
+    
     $('#fly').css('top',yy +"px");
     $('#fly').css('left',xx +"px");
 
@@ -120,6 +122,7 @@ function HitTest() {
     }
 }
 function setMap(){
+    $( ".b").removeClass('b');
     for(var i=1; i<=8;i++){
         for(var j=1; j<=8;j++){
             setColor(i,j,oSettings.map[i-1][j-1])
@@ -131,16 +134,17 @@ function saveMap(){
     for(var i=1; i<=8;i++){
         for(var j=1; j<=8;j++){
             c = $( ".container div#x"+i+"y"+j).css("background-color");
-            oSettings.map[i-1][j-1] = c == "rgb(26, 26, 26)"? 0: c;
+            oSettings.map[i-1][j-1] = c == oSettings.emptyColor? 0: c;
         }
     }
 }
 
 function setColor(x,y,color){
     var el = $( ".container div#x"+x+"y"+y);
-
-    if(el.length && color != "rgba(0, 0, 0, 0)"){
+    // console.log(color)
+    if(el.length && color != EMPTY_COLOR && color != 0){
         el.css("background-color", color);
+        el.addClass('b');
         return true;
     }
     return false;
@@ -152,7 +156,7 @@ function setColorFly(x,y,id){
 function TouchEnd (event) {
     var e = event.originalEvent;
     $('#fly').css('display',"none");
-    console.log("touch END")
+    // console.log("touch END")
     saveMap();
     if( oSettings.hash != hash2(oSettings.map.toString())){
         oSettings.hash = hash2(oSettings.map.toString());
@@ -168,18 +172,6 @@ function getFlyPos() {
         y: parseInt($('#fly').css('top'))
     }
 }
-function status(screenObj){
-    var obj = {
-        sX: screenObj.screenX.toFixed(2),
-        sY: screenObj.screenY.toFixed(2),
-        pX: screenObj.pageX.toFixed(2),
-        pY: screenObj.pageY.toFixed(2),
-        cX: screenObj.clientX.toFixed(2),
-        cY: screenObj.clientY.toFixed(2)
-    }
-    var s = "screen (x:"+obj.sX+", y:"+obj.sY+")<br>page (x:"+obj.pX+", y:"+obj.pY+")<br>client (x:"+obj.cX+", y:"+obj.cY+")<br>";
-    $('.status').html(s);
-}
 function lh(x,y) {
     return x+y*100;
 };
@@ -191,7 +183,7 @@ function isCan(x, y){
         a = oSettings.map[i+x].map(a => (a!=0)+0)
         for(var j=0;j<3;j++){
             c = $($('#fly div')[k++]).css('background-color');
-            f[i][j] = (c != "rgba(0, 0, 0, 0)")+0;
+            f[i][j] = (c != EMPTY_COLOR)+0;
             b[j][i] = a[j+y];
         }
     }

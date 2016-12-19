@@ -9,16 +9,17 @@ body {
   text-align: center;
   padding-top: calc(50vh - 66vw);
   overflow: hidden;
+  background: url(img/bg.png);
+  background-size: contain;
 }
-.container {
-
-}
-.container > div {
-  background-color: #1a1a1a;
+.b {
   background-image: url(img/babl.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 109%;
+}
+.container > div {
+  background-color: rgba(0, 0, 0, 0.4);
   display: inline-flex;
   margin: 0;
   padding: 0;
