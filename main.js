@@ -1,7 +1,7 @@
 var EMPTY_COLOR = "rgba(0, 0, 0, 0)";
 var oSettings = {
     lastSelector: "#01",
-    emptyColor: "rgba(0, 0, 0, 0.4)",
+    emptyColor: "rgba(0, 0, 0, 0.8)",
     map: [
         [0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0],
