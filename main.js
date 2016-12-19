@@ -15,15 +15,31 @@ var oSettings = {
     hash:'eafb5775474fed1ce116ed6114ecb0e8'
 }
 function main() {
-    setupScreen()
-    
-    $('body').bind('touchstart', TouchStart);
-    $('body').bind('touchmove', TouchMove);
-    $('body').bind('touchend', TouchEnd);
-
+    setupScreen();
     setTimeout(function(){
         $('.preloader').fadeOut(600);
     }, 1000);
+    	
+    $('.btn#start').click(function(e){
+    	$('body').bind('touchstart', TouchStart);
+			$('body').bind('touchmove', TouchMove);
+			$('body').bind('touchend', TouchEnd);	
+	   	
+    	console.log("start")
+	   	$('.windowLayer').fadeOut();
+	   	$('.layer').css('filter', 'blur(0)');
+	   /*	setTimeout(()=>{
+			$('body').bind('touchstart', TouchStart);
+			$('body').bind('touchmove', TouchMove);
+			$('body').bind('touchend', TouchEnd);	
+	   	},1000)*/
+	   	
+	});
+	$('.btn#startAgein').click(function(e){
+	   $('.windowLayer').fadeOut();
+	   $('.layer').css('filter', 'blur(0)');
+	});
+	
 }
 function setupScreen(){
     for(var i=1; i<=8;i++){
@@ -41,11 +57,20 @@ function reDrowElement(id){
         black,black,black,black,black,
         "#FF0","#0FF","#F00","#0F0","#00F","#FFF", "#F0F"];
     $( id+".symble" ).html('');
+    
     for(var i=1; i<=3; i++)
     for(var j=1; j<=3; j++){
         $( id+".symble" ).append( '<div id="x'+i+'y'+j+'" style="background-color: '
         +color[Math.floor(Math.random()*color.length)]+'"></div>' );
     }
+    var b = 1
+	for(var i=0; i<9; i++) {
+        b &= "rgb(0, 0, 0)" == $($( id + '.symble div')[i]).css("background-color");
+    }
+    if(b){
+    	return reDrowElement(id);
+    }
+
     return arguments.callee;
 }
 function TouchStart (event) {
@@ -110,8 +135,8 @@ function HitTest() {
     setMap();
     
 
-    for(var i=1; i<=6;i++){
-        for(var j=1; j<=6;j++){
+    for(var i=1; i<=8;i++){
+        for(var j=1; j<=8;j++){
             currentEl = $( ".container div#x"+j+"y"+i);
             posDesk = currentEl.position();
             dx = posDesk.left - (posParent.left + posFly.left);

@@ -9,18 +9,31 @@
 		<div class="preloader">
 			<div class="img"></div>
 		</div>
-		<div class="status">
-		screen (x:000, y:000)<br>
-		page (x:000, y:000)<br>
-		client (x:000, y:000)<br>
+		<div class="layer">
+			<div class="container"></div>
+			<div class="control-panel">
+			  <div id="01" class="symble"></div>
+			  <div id="02" class="symble"></div>
+			  <div id="03" class="symble"></div>
+			</div>
+			<div id="fly" class="symble" style="display: none; top:0; left: 0"></div>
+			
 		</div>
-		<div class="container"></div>
-		<div class="control-panel">
-		  <div id="01" class="symble"></div>
-		  <div id="02" class="symble"></div>
-		  <div id="03" class="symble"></div>
+		<div class="windowLayer">
+			<div class="Menu">
+				<div id="start" class="btn">Start</div>
+				<div id="setting" class="btn">Settings</div>
+				<div id="about" class="btn">About a Game</div>
+			</div>
+			<div class="GameOver" style="display:none">
+				<h1>Game Over</h1>
+				<p>You score is: <div id="score"></div></p>
+				<p>You bast score is: <div id="score-best"></div></p>
+				<div class="btn" id="startAgein">Start New Game</div>
+				<div class="btn" id="backToMenu">Back to menu</div>
+			</div>
+			
 		</div>
-		<div id="fly" class="symble" style="display: none; top:0; left: 0"></div>
 		<script type="text/javascript" src="main.js"></script>
 	</body>
 </html>
