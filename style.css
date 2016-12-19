@@ -21,11 +21,9 @@ body {
 .container > div {
   background-color: rgba(0, 0, 0, 0.4);
   display: inline-flex;
-  margin: 0;
   padding: 0;
-  /* transition: background-color 0.2s, border-radius 0.2s; */
   border-radius: 9vw;
-  /* box-shadow: inset -5px -6px 27px #000; */
+  transition: transform 0.5s, border-radius 0.2s, background-color 0.2s;
 }
 
 @media screen and (orientation: landscape) { 
@@ -45,8 +43,6 @@ body {
   width: 11vw;
   height: 11vw;
   margin: 2px;
-  /* transform: scale(0.2,5.0); */
-  /* transition: transform 0.2s; */
 }
 }
 
@@ -140,3 +136,8 @@ body {
     background-repeat: no-repeat;
     background-position: center;
 }
+.aniDel {
+    transform: scale(0,0);
+    border-radius; 0;
+}
+

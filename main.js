@@ -163,9 +163,10 @@ function TouchEnd (event) {
     // console.log("touch END")
     saveMap();
     if( oSettings.hash != hash2(oSettings.map.toString())){
-        oSettings.hash = hash2(oSettings.map.toString());
         reDrowElement(oSettings.lastSelector)
     }
+    isLineDel();
+    oSettings.hash = hash2(oSettings.map.toString());
     e.preventDefault();
 }
 function getFlyPos() {
@@ -199,5 +200,47 @@ function hash2 (ss, l){
     s=a.length||1,i=a.length?a.reduce((p,c)=>p+c):1,s="",A,B,k=0,tan=Math.tan;
     while (s.length < l){A=a[k++%s]||0.5;B=a[k++%s]||1.5;i=i+(A^B)%l;s+=tan(i*B/A).toString(16).split('.')[1];}
     return s.slice(0, l);
+}
+function ani(el){
+    el.addClass('aniDel')
+    setTimeout(()=>{
+        el.removeClass('b');
+        el.css('background-color', '');
+        el.removeClass('aniDel');
+    },500);
+}
+function aniDelRow(n){
+    for(var i=1;i<=8;i++){
+        ani($('#x'+i+'y'+n));
+        oSettings.map[i-1][n-1] = 0;
+    }
+}
+function aniDelCol(n){
+    for(var i=1;i<=8;i++){
+        ani($('#x'+n+'y'+i));
+        oSettings.map[n-1][i-1] = 0;
+    }
+}
+function rowIsReady(n){
+    var out=true;
+    for(var i=0;i<8;i++){
+        out &= oSettings.map[i][n] != 0;
+    }
+    return out;
+}
+function colIsReady(n){
+    return oSettings.map[n].indexOf(0) == -1;
+}
+function isLineDel(){
+	var arrLineX = [],
+		arrLineY = [];
+	for(var i=1;i<=8;i++){
+		arrLineX.push(rowIsReady(i-1));
+		arrLineY.push(colIsReady(i-1));
+	}
+	for(var j=1;j<=8;j++){
+		if(arrLineX[j-1])	aniDelRow(j);
+		if(arrLineY[j-1])	aniDelCol(j);
+	}
 }
 main();
