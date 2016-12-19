@@ -35,7 +35,11 @@ function setupScreen(){
 }
 function reDrowElement(id){
     var black = id == "#fly"? EMPTY_COLOR: "#000";
-    var color = [black,black,black,black,black,"#FF0","#0FF","#F00","#0F0","#00F","#FFF", "#F0F"];
+    var color = [
+        black,black,black,black,black,
+        black,black,black,black,black,
+        black,black,black,black,black,
+        "#FF0","#0FF","#F00","#0F0","#00F","#FFF", "#F0F"];
     $( id+".symble" ).html('');
     for(var i=1; i<=3; i++)
     for(var j=1; j<=3; j++){
