@@ -2,6 +2,7 @@ var EMPTY_COLOR = "rgba(0, 0, 0, 0)";
 var oSettings = {
     lastSelector: "#01",
     emptyColor: "rgba(0, 0, 0, 0.8)",
+    screenWidth:0,
     map: [
         [0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0],
@@ -38,7 +39,7 @@ function main() {
 		$('body').bind('touchend', TouchEnd);	
 	   	
 	});
-	
+	oSettings.screenWidth = $(document).width()-$('#fly').width()-50;
 }
 function setupScreen(){
     for(var i=1; i<=8;i++){
@@ -81,7 +82,7 @@ function TouchStart (event) {
         fly = $('#fly'),
         screenObj = e.touches[0],
         fp = getFlyPos(),
-        xx = screenObj.pageX - fp.w/2,
+        xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth)),
         yy = screenObj.pageY - fp.h*1.5;
     
     
@@ -106,7 +107,7 @@ function TouchStart (event) {
 function TouchMove (event) {
     var screenObj = event.originalEvent.touches[0],
         fp = getFlyPos(),
-        xx = screenObj.pageX - fp.w/2,
+    	xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth)),
         yy = screenObj.pageY - fp.h*1.5;
     
     $('#fly').css('top',yy +"px");
