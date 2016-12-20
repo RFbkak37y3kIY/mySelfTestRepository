@@ -16,14 +16,15 @@ var oSettings = {
     hash:'eafb5775474fed1ce116ed6114ecb0e8'
 }
 function main() {
+	setBestScore(parseInt(window.localStorage.getItem("best-score")) || 0);
     setupScreen();
     setTimeout(function(){
         $('.preloader').fadeOut(600);
     }, 1000);
     	
     var onClickToStart = function(e){
-	   $('.windowLayer').fadeOut();
-	  // $('.layer').css('filter', 'blur(0)');
+    	$('.score').html(0);
+	    $('.windowLayer').fadeOut();
 	    $('body').bind('touchstart', TouchStart);
 		$('body').bind('touchend', TouchEnd);
 		oSettings.map= [
@@ -257,12 +258,14 @@ function ani(el){
     },500);
 }
 function aniDelRow(n){
+	addScore(100);
     for(var i=1;i<=8;i++){
         ani($('#x'+i+'y'+n));
         oSettings.map[i-1][n-1] = 0;
     }
 }
 function aniDelCol(n){
+	addScore(100);
     for(var i=1;i<=8;i++){
         ani($('#x'+n+'y'+i));
         oSettings.map[n-1][i-1] = 0;
@@ -320,5 +323,17 @@ function isGameOver(){
 	}
 	return true;
 
+}
+function addScore(n){
+	var scr = parseInt($('.score').html()) + n;
+	if(oSettings.BestScore < scr){
+		setBestScore(scr);
+	}
+	$('.score').html(scr);
+}
+function setBestScore(n){
+	oSettings.BestScore = n;
+	$('.score-best').html(oSettings.BestScore);
+	window.localStorage.setItem("best-score", oSettings.BestScore);
 }
 main();
