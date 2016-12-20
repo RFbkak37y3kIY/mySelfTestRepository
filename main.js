@@ -62,7 +62,11 @@ function reDrowElement(id){
         $( id+".symble" ).append( '<div id="x'+i+'y'+j+'" style="background-color: '
         +color[Math.floor(Math.random()*color.length)]+'"></div>' );
     }
-    var b = 1
+    if(id != "#fly"){
+    	 $('.symble div:not([style="background-color: #000"])').addClass('b');
+    }  
+    $( "#fly .b").removeClass('b');
+    var b = 1;
 	for(var i=0; i<9; i++) {
         b &= "rgb(0, 0, 0)" == $($( id + '.symble div')[i]).css("background-color");
     }
@@ -146,7 +150,8 @@ function HitTest() {
     }
 }
 function setMap(){
-    $( ".b").removeClass('b');
+    $( ".container .b").removeClass('b');
+    $( "#fly .b").removeClass('b');
     for(var i=1; i<=8;i++){
         for(var j=1; j<=8;j++){
             setColor(i,j,oSettings.map[i-1][j-1])
