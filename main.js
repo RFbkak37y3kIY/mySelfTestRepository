@@ -21,24 +21,31 @@ function main() {
         $('.preloader').fadeOut(600);
     }, 1000);
     	
-    $('.btn#start').click(function(e){
-    	$('body').bind('touchstart', TouchStart);
-		
-		$('body').bind('touchend', TouchEnd);	
-	   	
-    	console.log("start")
-	   	$('.windowLayer').fadeOut();
-	   	//$('.layer').css('filter', 'blur(0)');
-	   	
-	});
-	$('.btn#startAgein').click(function(e){
+    var onClickToStart = function(e){
 	   $('.windowLayer').fadeOut();
 	  // $('.layer').css('filter', 'blur(0)');
-	   $('body').bind('touchstart', TouchStart);
-		$('body').bind('touchmove', TouchMove);
-		$('body').bind('touchend', TouchEnd);	
-	   	
+	    $('body').bind('touchstart', TouchStart);
+		$('body').bind('touchend', TouchEnd);
+		oSettings.map= [
+			[0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0]
+		];
+		setMap();  	
+	}
+    $('.btn#start').click(onClickToStart);
+	$('.btn#startAgein').click(onClickToStart);
+
+	$('.btn#backToMenu').click(function(e){
+		 $('.windowLayer .GameOver').fadeOut();
+		 $('.windowLayer .Menu').fadeIn();
 	});
+	
 	oSettings.screenWidth = $('.layer').width()-$('#fly').width()-20;
 }
 function setupScreen(){
@@ -132,7 +139,7 @@ function HitTest() {
         posParent = $('#fly').position(), 
         dx, dy, d = 120,
         currentEl;
-    $('.container div').css('background-color', '');
+    
     setMap();
     
 
@@ -151,6 +158,7 @@ function HitTest() {
     }
 }
 function setMap(){
+	$('.container div').css('background-color', '');
     $( ".container .b").removeClass('b');
     $( "#fly .b").removeClass('b');
     for(var i=1; i<=8;i++){
@@ -194,7 +202,17 @@ function TouchEnd (event) {
     isLineDel();
     oSettings.hash = hash2(oSettings.map.toString());
     $('body').unbind('touchmove', TouchMove);
-	clearInterval(oSettings.hitTestInterval)
+    clearInterval(oSettings.hitTestInterval);
+    if(isGameOver()){
+    	
+		$(".windowLayer .Menu").css("display", "none");
+		$(".windowLayer .GameOver").css("display", "block");
+		$(".windowLayer").fadeIn(600);
+		$('body').unbind('touchstart', TouchStart);
+		$('body').unbind('touchend', TouchEnd);
+		
+    }
+	
     
     e.preventDefault();
 }
@@ -271,5 +289,36 @@ function isLineDel(){
 		if(arrLineX[j-1])	aniDelRow(j);
 		if(arrLineY[j-1])	aniDelCol(j);
 	}
+}
+function isGameOver(){
+	function f(id) {
+		var a = $(id+' div'),b='background-color',c="rgb(0, 0, 0)";
+	  	return [[$(a[0]).css(b)!=c,$(a[1]).css(b)!=c,$(a[2]).css(b)!=c],
+			    [$(a[3]).css(b)!=c,$(a[4]).css(b)!=c,$(a[5]).css(b)!=c],
+			    [$(a[6]).css(b)!=c,$(a[7]).css(b)!=c,$(a[8]).css(b)!=c]];
+	}
+	function d(xx, yy, ar){
+		var out = 0;
+		for (var x = 0; x <3; x++) {
+			for (var y = 0; y <3; y++) {
+				out |= (oSettings.map[xx+x][yy+y] != 0) && ar[y][x];
+			}
+		}
+		
+		return !out;
+	}
+	var arr = [f("#01"),f("#02"),f("#03")];
+	
+	for (var i = 0; i <3; i++) {
+		for (var x = 0; x <6; x++) {
+			for (var y = 0; y <6; y++) {
+				if(d(x,y,arr[i])){
+					return false;
+				}
+			}
+		}
+	}
+	return true;
+
 }
 main();
