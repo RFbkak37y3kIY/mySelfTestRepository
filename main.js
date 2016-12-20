@@ -91,15 +91,16 @@ function TouchStart (event) {
         fly.css('top',yy +"px");
         fly.css('left',xx +"px");
         oSettings.lastSelector = '#' + targetID;
+
         $('body').bind('touchmove', TouchMove);
+        oSettings.hitTestInterval = setInterval(HitTest, 200);
     }
     
     // console.log(targetID,screenObj);
     e.preventDefault();
 }
 function TouchMove (event) {
-    var e = event.originalEvent,
-        screenObj = e.touches[0],
+    var screenObj = event.originalEvent.touches[0],
         fp = getFlyPos(),
         xx = screenObj.pageX - fp.w/2,
         yy = screenObj.pageY - fp.h*1.5;
@@ -107,13 +108,9 @@ function TouchMove (event) {
     $('#fly').css('top',yy +"px");
     $('#fly').css('left',xx +"px");
 
-    $('.container div').css('background-color', '');
-    
-    // $('.container div#x'+xx+'y'+yy).css('background-color', '');
-    
-    HitTest();
+    // HitTest();
 
-    e.preventDefault();
+    event.originalEvent.preventDefault();
 }
 function copycolorsInFly(fromID){
     var color, isColor;
@@ -130,14 +127,13 @@ function HitTest() {
         posParent = $('#fly').position(), 
         dx, dy, d = 120,
         currentEl;
-    // $(".container div").css("background-color", null);
+    $('.container div').css('background-color', '');
     setMap();
     
 
-    for(var i=1; i<=8;i++){
-        for(var j=1; j<=8;j++){
-            currentEl = $( ".container div#x"+j+"y"+i);
-            posDesk = currentEl.position();
+    for(var i=1; i<=6;i++){
+        for(var j=1; j<=6;j++){
+            posDesk = $( ".container div#x"+j+"y"+i).position();
             dx = posDesk.left - (posParent.left + posFly.left);
             dy = posDesk.top - (posParent.top + posFly.top);
             if(dx > 0 && dx < d && dy > 0 && dy < d ){
@@ -192,6 +188,8 @@ function TouchEnd (event) {
     isLineDel();
     oSettings.hash = hash2(oSettings.map.toString());
     $('body').unbind('touchmove', TouchMove);
+	clearInterval(oSettings.hitTestInterval)
+    
     e.preventDefault();
 }
 function getFlyPos() {
