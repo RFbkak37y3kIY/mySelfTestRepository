@@ -27,12 +27,12 @@ function main() {
 	   	
     	console.log("start")
 	   	$('.windowLayer').fadeOut();
-	   	$('.layer').css('filter', 'blur(0)');
+	   	//$('.layer').css('filter', 'blur(0)');
 	   	
 	});
 	$('.btn#startAgein').click(function(e){
 	   $('.windowLayer').fadeOut();
-	   $('.layer').css('filter', 'blur(0)');
+	  // $('.layer').css('filter', 'blur(0)');
 	   $('body').bind('touchstart', TouchStart);
 		$('body').bind('touchmove', TouchMove);
 		$('body').bind('touchend', TouchEnd);	
