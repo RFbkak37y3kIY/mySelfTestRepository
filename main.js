@@ -39,7 +39,7 @@ function main() {
 		$('body').bind('touchend', TouchEnd);	
 	   	
 	});
-	oSettings.screenWidth = $('.layer').width()-$('#fly').width();
+	oSettings.screenWidth = $('.layer').width()-$('#fly').width()-20;
 }
 function setupScreen(){
     for(var i=1; i<=8;i++){
@@ -82,7 +82,7 @@ function TouchStart (event) {
         fly = $('#fly'),
         screenObj = e.touches[0],
         fp = getFlyPos(),
-        xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth)),
+        xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
         yy = screenObj.pageY - fp.h*1.5;
     
     
@@ -107,7 +107,7 @@ function TouchStart (event) {
 function TouchMove (event) {
     var screenObj = event.originalEvent.touches[0],
         fp = getFlyPos(),
-    	xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth)),
+    	xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
         yy = screenObj.pageY - fp.h*1.5;
     
     $('#fly').css('top',yy +"px");
