@@ -39,7 +39,7 @@ function main() {
 		$('body').bind('touchend', TouchEnd);	
 	   	
 	});
-	oSettings.screenWidth = $(document).width()-$('#fly').width()-50;
+	oSettings.screenWidth = $('.layer').width()-$('#fly').width();
 }
 function setupScreen(){
     for(var i=1; i<=8;i++){
