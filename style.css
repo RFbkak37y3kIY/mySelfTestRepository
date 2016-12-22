@@ -159,6 +159,7 @@ body {
     top: 0;
     left: 0;
     width: 100vw;
+    transition: opacity 1s;
 }
 
 .layer {
@@ -245,13 +246,21 @@ height: 34vw;
     text-align: center;
     background-color: rgba(0,0,0,0.5);
 }
+.layer p.left {
+  left:0;
 
+}
+.layer p.right {
+  right:0;
+}
 .layer p {
+    position: absolute;
     color: #fff;
-    width: 50vw;
+    /* width: 50vw;*/
     display: inline;
     padding: 0 6vw;
     font-size: 5vw;
+    margin-top: -7vw;
 }
 
 .container {

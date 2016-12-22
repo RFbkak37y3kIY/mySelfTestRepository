@@ -15,12 +15,21 @@ var oSettings = {
     ],
     hash:'eafb5775474fed1ce116ed6114ecb0e8'
 }
-function hidePreloader(){
-	$('.preloader').css('opacity', '0');
-	setTimeout(function(){
-		$('.preloader').css('display', 'none');
-	},1000);
+
+function ShowHideElement(el, bool){
+	if(bool == true){
+		el.css('display', 'block');
+		setTimeout(function(){
+			el.css('opacity', 1);
+		},100);
+	}else{
+		el.css('opacity', '0');
+		setTimeout(function(){
+			el.css('display', 'none');
+		},1000);
+	}
 }
+
 function main() {
 	setBestScore(parseInt(window.localStorage.getItem("best-score")) || 0);
     setupScreen();
@@ -28,7 +37,8 @@ function main() {
     	
     var onClickToStart = function(e){
     	$('.score').html(0);
-	    $('.windowLayer').fadeOut();
+//	    $('.windowLayer').fadeOut();
+	    ShowHideElement($('.windowLayer'), false);
 	    $('body').bind('touchstart', TouchStart);
 		$('body').bind('touchend', TouchEnd);
 		oSettings.map= [
@@ -47,13 +57,15 @@ function main() {
 	$('.btn#startAgein').click(onClickToStart);
 
 	$('.btn#backToMenu').click(function(e){
-		 $('.windowLayer .GameOver').fadeOut();
-		 $('.windowLayer .Menu').fadeIn();
+//		 $('.windowLayer .GameOver').fadeOut();
+		 ShowHideElement($('.windowLayer .GameOver'), false);
+//		 $('.windowLayer .Menu').fadeIn();
+		 ShowHideElement($('.windowLayer .Menu'),true);
 	});
 	
 	oSettings.screenWidth = $('.layer').width()-$('#fly').width()-20;
 	setTimeout(function(){
-        hidePreloader();
+        ShowHideElement($('.preloader'), false);
     }, 1000);
 }
 function setupScreen(){
@@ -215,7 +227,8 @@ function TouchEnd (event) {
     	
 		$(".windowLayer .Menu").css("display", "none");
 		$(".windowLayer .GameOver").css("display", "block");
-		$(".windowLayer").fadeIn(600);
+//		$(".windowLayer").fadeIn(600);
+		ShowHideElement($('.windowLayer'), true);
 		$('body').unbind('touchstart', TouchStart);
 		$('body').unbind('touchend', TouchEnd);
 		
