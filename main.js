@@ -32,41 +32,41 @@ function ShowHideElement(el, bool){
 
 function main() {
 	try {
-	setBestScore(parseInt(window.localStorage.getItem("best-score")) || 0);
-    setupScreen();
-    	
-    var onClickToStart = function(e){
-    	$('.score').html(0);
-//	    $('.windowLayer').fadeOut();
-	    ShowHideElement($('.windowLayer'), false);
-	    $('body').bind('touchstart', TouchStart);
-		$('body').bind('touchend', TouchEnd);
-		oSettings.map= [
-			[0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0]
-		];
-		setMap();  	
-	}
-    $('.btn#start').click(onClickToStart);
-	$('.btn#startAgein').click(onClickToStart);
+		setBestScore(parseInt(window.localStorage.getItem("best-score")) || 0);
+		setupScreen();
 
-	$('.btn#backToMenu').click(function(e){
-//		 $('.windowLayer .GameOver').fadeOut();
-		 ShowHideElement($('.windowLayer .GameOver'), false);
-//		 $('.windowLayer .Menu').fadeIn();
-		 ShowHideElement($('.windowLayer .Menu'),true);
-	});
-	
-	oSettings.screenWidth = $('.layer').width()-$('#fly').width()-10;
-	setTimeoute(function(){
-        ShowHideElement($('.preloader'), false);
-    }, 1000);
+		var onClickToStart = function(e){
+			$('.score').html(0);
+	//	    $('.windowLayer').fadeOut();
+			ShowHideElement($('.windowLayer'), false);
+			$('body').bind('touchstart', TouchStart);
+			$('body').bind('touchend', TouchEnd);
+			oSettings.map= [
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0]
+			];
+			setMap();  	
+		}
+		$('.btn#start').click(onClickToStart);
+		$('.btn#startAgein').click(onClickToStart);
+
+		$('.btn#backToMenu').click(function(e){
+	//		 $('.windowLayer .GameOver').fadeOut();
+			 ShowHideElement($('.windowLayer .GameOver'), false);
+	//		 $('.windowLayer .Menu').fadeIn();
+			 ShowHideElement($('.windowLayer .Menu'),true);
+		});
+
+		oSettings.screenWidth = $('.layer').width()-$('#fly').width()-10;
+		setTimeout(function(){
+			ShowHideElement($('.preloader'), false);
+		}, 1000);
 	}catch(e){
 		document.write('<div class="error">!!! ERROR:'+"\n<br>"+"\n<br>"+e.stack.toString()+'</div>');
 	}
