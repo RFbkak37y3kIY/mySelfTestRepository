@@ -15,12 +15,16 @@ var oSettings = {
     ],
     hash:'eafb5775474fed1ce116ed6114ecb0e8'
 }
+function hidePreloader(){
+	$('.preloader').css('opacity', '0');
+	setTimeout(function(){
+		$('.preloader').css('display', 'none');
+	},1000);
+}
 function main() {
 	setBestScore(parseInt(window.localStorage.getItem("best-score")) || 0);
     setupScreen();
-    setTimeout(function(){
-        $('.preloader').fadeOut(600);
-    }, 1000);
+    
     	
     var onClickToStart = function(e){
     	$('.score').html(0);
@@ -48,6 +52,9 @@ function main() {
 	});
 	
 	oSettings.screenWidth = $('.layer').width()-$('#fly').width()-20;
+	setTimeout(function(){
+        hidePreloader();
+    }, 1000);
 }
 function setupScreen(){
     for(var i=1; i<=8;i++){
