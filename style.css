@@ -266,3 +266,16 @@ height: 34vw;
 .container {
     padding-top: 5vw;
 }
+
+.error {
+    background-color: #900;
+    color: #FFF;
+    font-size: 4vw;
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    width: calc(100vw - 10vw);
+    margin: 5vw;
+    padding: 5vw;
+    font-family: monospace;
+}

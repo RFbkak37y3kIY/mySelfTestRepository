@@ -31,9 +31,9 @@ function ShowHideElement(el, bool){
 }
 
 function main() {
+	try {
 	setBestScore(parseInt(window.localStorage.getItem("best-score")) || 0);
     setupScreen();
-    
     	
     var onClickToStart = function(e){
     	$('.score').html(0);
@@ -64,9 +64,12 @@ function main() {
 	});
 	
 	oSettings.screenWidth = $('.layer').width()-$('#fly').width()-10;
-	setTimeout(function(){
+	setTimeoute(function(){
         ShowHideElement($('.preloader'), false);
     }, 1000);
+	}catch(e){
+		document.write('<div class="error">!!! ERROR:'+"\n<br>"+"\n<br>"+e.stack.toString()+'</div>');
+	}
 }
 function setupScreen(){
     for(var i=1; i<=8;i++){
