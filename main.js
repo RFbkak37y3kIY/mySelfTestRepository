@@ -63,7 +63,7 @@ function main() {
 		 ShowHideElement($('.windowLayer .Menu'),true);
 	});
 	
-	oSettings.screenWidth = $('.layer').width()-$('#fly').width();
+	oSettings.screenWidth = $('.layer').width()-$('#fly').width()-10;
 	setTimeout(function(){
         ShowHideElement($('.preloader'), false);
     }, 1000);
