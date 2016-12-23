@@ -19,11 +19,12 @@ var oSettings = {
 }
 var isStart = false;
 $( document ).ready(function() {
-	if(window.location.toString().indexOf('http://') == -1){
+	/*if(window.location.toString().indexOf('http://') == -1){
 		document.addEventListener("deviceready", main, false);
 	}else{
 		main();
-	}
+	}*/
+	main();
 
     
 });
