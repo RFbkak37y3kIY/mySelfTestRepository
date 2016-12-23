@@ -15,7 +15,9 @@ var oSettings = {
     ],
     hash:'eafb5775474fed1ce116ed6114ecb0e8'
 }
-
+$( document ).ready(function() {
+    document.addEventListener("deviceready", main, false);
+});
 function ShowHideElement(el, bool){
 	if(bool == true){
 		el.css('display', 'block');
@@ -359,4 +361,3 @@ function setBestScore(n){
 	$('.score-best').html(oSettings.BestScore);
 	window.localStorage.setItem("best-score", oSettings.BestScore);
 }
-main();
