@@ -1,3 +1,5 @@
+'use strict';
+
 var EMPTY_COLOR = "rgba(0, 0, 0, 0)";
 var oSettings = {
     lastSelector: "#01",
@@ -76,7 +78,7 @@ function main() {
 
 		oSettings.screenWidth = $('.layer').width()-$('#fly').width()-10;
 		setTimeout(function(){
-			//ShowHideElement($('.preloader'), false);
+			ShowHideElement($('.preloader'), false);
 		}, 1000);
 	}catch(e){
 		document.write('<div class="error">!!! ERROR:'+"\n<br>"+"\n<br>"+e.stack.toString()+'</div>');
@@ -88,7 +90,10 @@ function setupScreen(){
             $( ".container" ).append( '<div id="x'+j+'y'+i+'"></div>' );
         }
     }
-    reDrowElement("#01")("#02")("#03")("#fly");
+    reDrowElement("#01");
+    reDrowElement("#02");
+    reDrowElement("#03");
+    reDrowElement("#fly");
 }
 function reDrowElement(id){
     var black = id == "#fly"? EMPTY_COLOR: "#000";
@@ -116,14 +121,15 @@ function reDrowElement(id){
     	return reDrowElement(id);
     }
 
-    return arguments.callee;
+    // return arguments.callee;
 }
 function TouchStart (event) {
     var e = event.originalEvent,
         fly = $('#fly'),
         screenObj = e.touches[0],
         fp = getFlyPos(),
-        xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
+        //xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
+        xx = screenObj.pageX - fp.w/2-10,
         yy = screenObj.pageY - fp.h*1.5;
     
     
@@ -148,9 +154,10 @@ function TouchStart (event) {
 function TouchMove (event) {
     var screenObj = event.originalEvent.touches[0],
         fp = getFlyPos(),
-    	xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
+    	//xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
+        xx = screenObj.pageX - fp.w/2-10,
         yy = screenObj.pageY - fp.h*1.5;
-    
+        
     $('#fly').css('top',yy +"px");
     $('#fly').css('left',xx +"px");
 
@@ -184,7 +191,15 @@ function HitTest() {
             dy = posDesk.top - (posParent.top + posFly.top);
             if(dx > 0 && dx < d && dy > 0 && dy < d ){
                 if(isCan(j, i)){
-                    setColorFly(j,i,0)(j+1,i,1)(j+2,i,2)(j,i+1,3)(j+1,i+1,4)(j+2,i+1,5)(j,i+2,6)(j+1,i+2,7)(j+2,i+2,8);
+                    setColorFly(j,i,0);
+                    setColorFly(j+1,i,1);
+                    setColorFly(j+2,i,2);
+                    setColorFly(j,i+1,3);
+                    setColorFly(j+1,i+1,4);
+                    setColorFly(j+2,i+1,5);
+                    setColorFly(j,i+2,6);
+                    setColorFly(j+1,i+2,7);
+                    setColorFly(j+2,i+2,8);
                 }
                 return;
             }
@@ -223,7 +238,7 @@ function setColor(x,y,color){
 }
 function setColorFly(x,y,id){
     setColor(x, y, $($('#fly div')[id]).css("background-color"))
-    return arguments.callee;
+    //return arguments.callee;
 }
 function TouchEnd (event) {
     var e = event.originalEvent;
@@ -267,7 +282,7 @@ function isCan(x, y){
     x = Math.min(x-1,5);
     y = Math.min(y-1,5);
     for(var i=0;i<3;i++){
-        a = oSettings.map[i+x].map(a => (a!=0)+0)
+        a = oSettings.map[i+x].map(function(a){return (a!=0)+0})
         for(var j=0;j<3;j++){
             c = $($('#fly div')[k++]).css('background-color');
             f[i][j] = (c != EMPTY_COLOR)+0;
@@ -278,14 +293,14 @@ function isCan(x, y){
     return out;
 }
 function hash2 (ss, l){
-    l=l||32;ss=ss||"";var a=new Uint8Array(ss.split('').map(a => a.charCodeAt(0))),
-    s=a.length||1,i=a.length?a.reduce((p,c)=>p+c):1,s="",A,B,k=0,tan=Math.tan;
+    l=l||32;ss=ss||"";var a=new Uint8Array(ss.split('').map(function(a){return a.charCodeAt(0)})),
+    s=a.length||1,i=a.length?a.reduce(function(p,c){return p+c}):1,s="",A,B,k=0,tan=Math.tan;
     while (s.length < l){A=a[k++%s]||0.5;B=a[k++%s]||1.5;i=i+(A^B)%l;s+=tan(i*B/A).toString(16).split('.')[1];}
     return s.slice(0, l);
 }
 function ani(el){
     el.addClass('aniDel')
-    setTimeout(()=>{
+    setTimeout(function() {
         el.removeClass('b');
         el.css('background-color', '');
         el.removeClass('aniDel');
