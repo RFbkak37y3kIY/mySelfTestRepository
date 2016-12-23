@@ -76,7 +76,7 @@ function main() {
 
 		oSettings.screenWidth = $('.layer').width()-$('#fly').width()-10;
 		setTimeout(function(){
-			ShowHideElement($('.preloader'), false);
+			//ShowHideElement($('.preloader'), false);
 		}, 1000);
 	}catch(e){
 		document.write('<div class="error">!!! ERROR:'+"\n<br>"+"\n<br>"+e.stack.toString()+'</div>');
