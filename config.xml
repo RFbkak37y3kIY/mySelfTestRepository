@@ -20,14 +20,14 @@
         following tag to your config.xml; you will still have the INTERNET
         permission on your app, which PhoneGap requires.
     -->
-    <preference name="permissions"                value="none"/>
+    <preference name="permissions" value="none"/>
 
     <access origin="*"/>
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <icon src="res/icon.png" />
+    <!-- preference name="android-targetSdkVersion" value="16"/ -->
     <platform name="android">
-        <!-- preference name="android-targetSdkVersion" value="16"/ --->
         <allow-intent href="market:*" />
         <preference name="Orientation" value="portrait" />
     </platform>
