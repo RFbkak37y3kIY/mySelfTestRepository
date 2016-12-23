@@ -15,8 +15,15 @@ var oSettings = {
     ],
     hash:'eafb5775474fed1ce116ed6114ecb0e8'
 }
+var isStart = false;
 $( document ).ready(function() {
-    document.addEventListener("deviceready", main, false);
+	if(window.location.toString().indexOf('http://') == -1){
+		document.addEventListener("deviceready", main, false);
+	}else{
+		main();
+	}
+
+    
 });
 function ShowHideElement(el, bool){
 	if(bool == true){
@@ -33,6 +40,8 @@ function ShowHideElement(el, bool){
 }
 
 function main() {
+	if(isStart) return;
+	isStart = true;
 	try {
 		setBestScore(parseInt(window.localStorage.getItem("best-score")) || 0);
 		setupScreen();
