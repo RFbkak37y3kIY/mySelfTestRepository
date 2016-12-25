@@ -81,6 +81,7 @@ function main() {
 		oSettings.screenWidth = $('.layer').width()-$('#fly').width()-10;
 		setTimeout(function(){
 			ShowHideElement($('.preloader'), false);
+			log(navigator.appVersion);
 		}, 1000);
 
 	});
