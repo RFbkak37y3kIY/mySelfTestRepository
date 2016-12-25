@@ -29,9 +29,9 @@
     <!-- preference name="android-targetSdkVersion" value="16"/ -->
     <preference name='phonegap-version' value='cli-5.1.1' />
     <platform name="android">
-        <plugin name="cordova-plugin-whitelist" version="1" />
-        <plugin name="cordova-plugin-google-payments" version="1" />
-        <plugin name="cordova-plugin-crosswalk-webview" version="1" />
+        <plugin name="cordova-plugin-whitelist"  />
+        <plugin name="cordova-plugin-google-payments"  />
+        <plugin name="cordova-plugin-crosswalk-webview"  />
         
         <allow-intent href="market:*" />
         <preference name="Orientation" value="portrait" />
