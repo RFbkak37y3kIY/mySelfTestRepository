@@ -170,14 +170,14 @@ body {
     background: linear-gradient(135deg,  #45484d 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
     text-align: center;
-    /* padding-top: calc(50vh - 66vw); */
+    
     overflow: hidden;
     height: 100vh;
     /* max-width: 100vw; */
     /* filter: blur(5px); */
     margin: 0;
     padding: 0;
-    padding-top: calc(50vh - 66vw);
+    padding-top: 10vh;
 }
 .btn {
    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#feccb1+0,f17432+50,ea5507+51,fb955e+100;Red+Gloss+%232 */
@@ -274,7 +274,7 @@ height: 34vw;
     position: absolute;
     top: 0;
     z-index: 999;
-    width: calc(100vw - 10vw);
+    width: 90vw;
     margin: 5vw;
     padding: 5vw;
     font-family: monospace;

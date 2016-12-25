@@ -49,7 +49,7 @@ function ShowHideElement(el, bool){
 }
 
 function main() {
-	tryC(function(){
+
 
 
 		setBestScore(parseInt(window.localStorage.getItem("best-score")) || 0);
@@ -81,10 +81,10 @@ function main() {
 		oSettings.screenWidth = $('.layer').width()-$('#fly').width()-10;
 		setTimeout(function(){
 			ShowHideElement($('.preloader'), false);
-			log(navigator.appVersion);
+			//log(navigator.appVersion);
 		}, 1000);
 
-	});
+	
 	
 }
 function setupScreen(){
