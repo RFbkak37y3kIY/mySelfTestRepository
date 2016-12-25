@@ -2,6 +2,7 @@
 
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "gipertroniks.games.blob_puzzle"
         version   = "1.0.3">
 
@@ -29,8 +30,9 @@
     <!-- preference name="android-targetSdkVersion" value="16"/ -->
     <preference name='phonegap-version' value='cli-5.1.1' />
     <platform name="android">
+        <gap:plugin name="com-admob-plugin" version="5.3.1" source="npm"/>
         <plugin name="cordova-plugin-whitelist"  />
-        <plugin name="cordova-plugin-google-payments"  />
+        
         <plugin name="cordova-plugin-crosswalk-webview"  />
         
         <allow-intent href="market:*" />
