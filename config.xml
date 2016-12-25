@@ -23,6 +23,10 @@
     <preference name="permissions" value="none"/>
 
     <access origin="*"/>
+    <plugin name="cordova-plugin-whitelist" version="1" />
+    <plugin name="cordova-plugin-google-payments" version="1" />
+    <plugin name="cordova-plugin-crosswalk-webview" version="1" />
+    
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <icon src="res/icon.png" />
