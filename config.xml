@@ -32,9 +32,8 @@
     <platform name="android">
         <!-- gap:plugin name="com-admob-plugin" version="5.3.1" source="npm"/ -->
         <plugin name="cordova-plugin-whitelist"  />
-        
         <plugin name="cordova-plugin-crosswalk-webview"  />
-        
+        <preference name="xwalkMode" value="lite" />
         <allow-intent href="market:*" />
         <preference name="Orientation" value="portrait" />
     </platform>
