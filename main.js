@@ -1,5 +1,16 @@
 'use strict';
 
+function log(a){
+	$('body').append('<div class="error">' + a + '</div>');
+}
+function tryC(c){
+	try {
+		c();
+	}catch(e){
+		log(e)
+	}
+
+}
 var EMPTY_COLOR = "rgba(0, 0, 0, 0)";
 var oSettings = {
     lastSelector: "#01",
@@ -17,17 +28,12 @@ var oSettings = {
     ],
     hash:'eafb5775474fed1ce116ed6114ecb0e8'
 }
-var isStart = false;
-$( document ).ready(function() {
-	/*if(window.location.toString().indexOf('http://') == -1){
-		document.addEventListener("deviceready", main, false);
-	}else{
-		main();
-	}*/
-	main();
 
-    
+
+$( document ).ready(function() {
+	main();
 });
+
 function ShowHideElement(el, bool){
 	if(bool == true){
 		el.css('display', 'block');
@@ -43,15 +49,13 @@ function ShowHideElement(el, bool){
 }
 
 function main() {
-	if(isStart) return;
-	isStart = true;
-	try {
+	tryC(function(){
+
+
 		setBestScore(parseInt(window.localStorage.getItem("best-score")) || 0);
 		setupScreen();
-
 		var onClickToStart = function(e){
 			$('.score').html(0);
-	//	    $('.windowLayer').fadeOut();
 			ShowHideElement($('.windowLayer'), false);
 			$('body').bind('touchstart', TouchStart);
 			$('body').bind('touchend', TouchEnd);
@@ -71,19 +75,16 @@ function main() {
 		$('.btn#startAgein').click(onClickToStart);
 
 		$('.btn#backToMenu').click(function(e){
-	//		 $('.windowLayer .GameOver').fadeOut();
 			 ShowHideElement($('.windowLayer .GameOver'), false);
-	//		 $('.windowLayer .Menu').fadeIn();
 			 ShowHideElement($('.windowLayer .Menu'),true);
 		});
-
 		oSettings.screenWidth = $('.layer').width()-$('#fly').width()-10;
 		setTimeout(function(){
 			ShowHideElement($('.preloader'), false);
 		}, 1000);
-	}catch(e){
-		document.write('<div class="error">!!! ERROR:'+"\n<br>"+"\n<br>"+e.stack.toString()+'</div>');
-	}
+
+	});
+	
 }
 function setupScreen(){
     for(var i=1; i<=8;i++){
@@ -239,12 +240,10 @@ function setColor(x,y,color){
 }
 function setColorFly(x,y,id){
     setColor(x, y, $($('#fly div')[id]).css("background-color"))
-    //return arguments.callee;
 }
 function TouchEnd (event) {
     var e = event.originalEvent;
     $('#fly').css('display',"none");
-    // console.log("touch END")
     saveMap();
     if( oSettings.hash != hash2(oSettings.map.toString())){
         reDrowElement(oSettings.lastSelector)
@@ -257,14 +256,11 @@ function TouchEnd (event) {
     	
 		$(".windowLayer .Menu").css("display", "none");
 		$(".windowLayer .GameOver").css("display", "block");
-//		$(".windowLayer").fadeIn(600);
 		ShowHideElement($('.windowLayer'), true);
 		$('body').unbind('touchstart', TouchStart);
 		$('body').unbind('touchend', TouchEnd);
 		
     }
-	
-    
     e.preventDefault();
 }
 function getFlyPos() {

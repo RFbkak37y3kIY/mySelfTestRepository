@@ -123,7 +123,7 @@ body {
 }
 
 .preloader::after {
-  content: "Powered by Giper-Troniks (2016) DEBUG 3";
+  content: "Powered by Giper-Troniks (2016) DEBUG 4";
   font-size: 4vw;
   bottom: 6vh;
   position: absolute;
