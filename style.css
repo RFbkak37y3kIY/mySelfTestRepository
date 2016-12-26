@@ -7,10 +7,10 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  /* -webkit-user-select: none; */
+  /* -moz-user-select: none;*/
+  /*-ms-user-select: none;*/
+  /* user-select: none; */
 }
 .b {
   background-image: url(img/babl.png);
