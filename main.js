@@ -321,7 +321,7 @@ function isCan(x, y){
     return out;
 }
 function hash2 (ss, l){
-    l=l||32;ss=ss||"";var a=new Array(ss.split('').map(function(a){return a.charCodeAt(0)})),
+    l=l||32;ss=ss||"";var a= ss.split('').map(function(a){return a.charCodeAt(0)}),
     s=a.length||1,i=a.length?a.reduce(function(p,c){return p+c}):1,s="",A,B,k=0,tan=Math.tan;
     while (s.length < l){A=a[k++%s]||0.5;B=a[k++%s]||1.5;i=i+(A^B)%l;s+=tan(i*B/A).toString(16).split('.')[1];}
     return s.slice(0, l);
