@@ -128,25 +128,17 @@ function reDrowElement(id){
             return reDrowElement(id);
         }
 	});
-
-    // return arguments.callee;
 }
 function TouchStart (event) {
 	var e = event.originalEvent,
-	fly = $('#fly'),
-            screenObj = e.touches[0],
-            fp = getFlyPos(),
-            //xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
-            xx = screenObj.pageX - fp.w/2-10,
-            yy = screenObj.pageY - fp.h*1.5;
+		fly = $('#fly'),
+		screenObj = e.touches[0],
+		fp = getFlyPos(),
+		xx = screenObj.pageX - fp.w/2-10,
+		yy = screenObj.pageY - fp.h*1.5;
         
     tryC(function(){
-        
-            
-        
-        
-        var targetID = $(screenObj.target).parent().attr('id') || 
-                        $(screenObj.target).attr('id');
+        var targetID = $(screenObj.target).parent().attr('id') || $(screenObj.target).attr('id');
         
         if(!!targetID && ["01","02","03"].indexOf(targetID) != -1){
             copycolorsInFly("#"+targetID);
@@ -154,34 +146,51 @@ function TouchStart (event) {
             fly.css('top',yy +"px");
             fly.css('left',xx +"px");
             oSettings.lastSelector = '#' + targetID;
-
+ 			$('body').unbind('touchstart', TouchStart);
             $('body').bind('touchmove', TouchMove);
             oSettings.hitTestInterval = setInterval(HitTest, 200);
         }
     });
-    // console.log(targetID,screenObj);
     e.preventDefault();
 
 }
 function TouchMove (event) {
     tryC(function(){
-
         var screenObj = event.originalEvent.touches[0],
             fp = getFlyPos(),
-        	//xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
-            xx = screenObj.pageX - fp.w/2-10,
+        	xx = screenObj.pageX - fp.w/2-10,
             yy = screenObj.pageY - fp.h*1.5;
             
         $('#fly').css('top',yy +"px");
         $('#fly').css('left',xx +"px");
-
-        // HitTest();
     });
     event.originalEvent.preventDefault();
 }
+function TouchEnd (event) {
+    var e = event.originalEvent;
+    tryC(function () {
+        $('#fly').css('display',"none");
+        saveMap();
+        if( oSettings.hash != hash2(oSettings.map.toString())){
+            reDrowElement(oSettings.lastSelector)
+        }
+        isLineDel();
+        oSettings.hash = hash2(oSettings.map.toString());
+        $('body').unbind('touchmove', TouchMove);
+        $('body').bind('touchstart', TouchStart);
+        clearInterval(oSettings.hitTestInterval);
+        if(isGameOver()){
+            $(".windowLayer .Menu").css("display", "none");
+            $(".windowLayer .GameOver").css("display", "block");
+            ShowHideElement($('.windowLayer'), true);
+            $('body').unbind('touchstart', TouchStart);
+            $('body').unbind('touchend', TouchEnd);
+        }
+    })
+    e.preventDefault();
+}
 function copycolorsInFly(fromID){
     tryC(function(){
-
         var color, isColor;
         for(var i=0;i<=9;i++){
             color = $($(fromID+" div")[i]).css("background-color")
@@ -269,31 +278,7 @@ function setColor(x,y,color){
 function setColorFly(x,y,id){
     setColor(x, y, $($('#fly div')[id]).css("background-color"))
 }
-function TouchEnd (event) {
-    var e = event.originalEvent;
-    tryC(function () {
-        
-        $('#fly').css('display',"none");
-        saveMap();
-        if( oSettings.hash != hash2(oSettings.map.toString())){
-            reDrowElement(oSettings.lastSelector)
-        }
-        isLineDel();
-        oSettings.hash = hash2(oSettings.map.toString());
-        $('body').unbind('touchmove', TouchMove);
-        clearInterval(oSettings.hitTestInterval);
-        if(isGameOver()){
-            
-            $(".windowLayer .Menu").css("display", "none");
-            $(".windowLayer .GameOver").css("display", "block");
-            ShowHideElement($('.windowLayer'), true);
-            $('body').unbind('touchstart', TouchStart);
-            $('body').unbind('touchend', TouchEnd);
-            
-        }
-    })
-    e.preventDefault();
-}
+
 function getFlyPos() {
     return {
         w: parseInt($('#fly').css('width')),
