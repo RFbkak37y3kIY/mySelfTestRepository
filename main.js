@@ -7,7 +7,7 @@ function tryC(c){
 	try {
 		c();
 	}catch(e){
-		log(e)
+		log(e.stack.toString())
 	}
 
 }
@@ -49,219 +49,248 @@ function ShowHideElement(el, bool){
 }
 
 function main() {
+    tryC(function(){
 
+        setBestScore(parseInt(window.localStorage.getItem("best-score")) || 0);
+        setupScreen();
+        var onClickToStart = function(e){
+            $('.score').html(0);
+            ShowHideElement($('.windowLayer'), false);
+            $('body').bind('touchstart', TouchStart);
+            $('body').bind('touchend', TouchEnd);
+            oSettings.map = [
+                [0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0]
+            ];
+            setMap();   
+        }
+        $('.btn#start').click(onClickToStart);
+        $('.btn#startAgein').click(onClickToStart);
 
+        $('.btn#backToMenu').click(function(e){
+             ShowHideElement($('.windowLayer .GameOver'), false);
+             ShowHideElement($('.windowLayer .Menu'),true);
+        });
+        oSettings.screenWidth = $('.layer').width()-$('#fly').width()-10;
+        log(navigator.appVersion);
+        setTimeout(function(){
+            ShowHideElement($('.preloader'), false);
+            
+        }, 1000);
 
-		setBestScore(parseInt(window.localStorage.getItem("best-score")) || 0);
-		setupScreen();
-		var onClickToStart = function(e){
-			$('.score').html(0);
-			ShowHideElement($('.windowLayer'), false);
-			$('body').bind('touchstart', TouchStart);
-			$('body').bind('touchend', TouchEnd);
-			oSettings.map= [
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0]
-			];
-			setMap();  	
-		}
-		$('.btn#start').click(onClickToStart);
-		$('.btn#startAgein').click(onClickToStart);
-
-		$('.btn#backToMenu').click(function(e){
-			 ShowHideElement($('.windowLayer .GameOver'), false);
-			 ShowHideElement($('.windowLayer .Menu'),true);
-		});
-		oSettings.screenWidth = $('.layer').width()-$('#fly').width()-10;
-		setTimeout(function(){
-			ShowHideElement($('.preloader'), false);
-			//log(navigator.appVersion);
-		}, 1000);
-
-	
-	
+    });
 }
 function setupScreen(){
-    for(var i=1; i<=8;i++){
-        for(var j=1; j<=8;j++){
-            $( ".container" ).append( '<div id="x'+j+'y'+i+'"></div>' );
+    tryC(function(){
+
+        for(var i=1; i<=8;i++){
+            for(var j=1; j<=8;j++){
+                $( ".container" ).append( '<div id="x'+j+'y'+i+'"></div>' );
+            }
         }
-    }
-    reDrowElement("#01");
-    reDrowElement("#02");
-    reDrowElement("#03");
-    reDrowElement("#fly");
+        reDrowElement("#01");
+        reDrowElement("#02");
+        reDrowElement("#03");
+        reDrowElement("#fly");
+    });
 }
 function reDrowElement(id){
-    var black = id == "#fly"? EMPTY_COLOR: "#000";
-    var color = [
-        black,black,black,black,black,
-        black,black,black,black,black,
-        black,black,black,black,black,
-        "#FF0","#0FF","#F00","#0F0","#00F","#FFF", "#F0F"];
-    $( id+".symble" ).html('');
-    
-    for(var i=1; i<=3; i++)
-    for(var j=1; j<=3; j++){
-        $( id+".symble" ).append( '<div id="x'+i+'y'+j+'" style="background-color: '
-        +color[Math.floor(Math.random()*color.length)]+'"></div>' );
-    }
-    if(id != "#fly"){
-    	 $('.symble div:not([style="background-color: #000"])').addClass('b');
-    }  
-    $( "#fly .b").removeClass('b');
-    var b = 1;
-	for(var i=0; i<9; i++) {
-        b &= "rgb(0, 0, 0)" == $($( id + '.symble div')[i]).css("background-color");
-    }
-    if(b){
-    	return reDrowElement(id);
-    }
+	tryC(function(){
+		
+        var black = id == "#fly"? EMPTY_COLOR: "#000";
+        var color = [
+            black,black,black,black,black,
+            black,black,black,black,black,
+            black,black,black,black,black,
+            "#FF0","#0FF","#F00","#0F0","#00F","#FFF", "#F0F"];
+        $( id+".symble" ).html('');
+        
+        for(var i=1; i<=3; i++)
+        for(var j=1; j<=3; j++){
+            $( id+".symble" ).append( '<div id="x'+i+'y'+j+'" style="background-color: '
+            +color[Math.floor(Math.random()*color.length)]+'"></div>' );
+        }
+        if(id != "#fly"){
+             $('.symble div:not([style="background-color: #000"])').addClass('b');
+        }  
+        $( "#fly .b").removeClass('b');
+        var b = 1;
+        for(var i=0; i<9; i++) {
+            b &= "rgb(0, 0, 0)" == $($( id + '.symble div')[i]).css("background-color");
+        }
+        if(b){
+            return reDrowElement(id);
+        }
+	});
 
     // return arguments.callee;
 }
 function TouchStart (event) {
-    var e = event.originalEvent,
-        fly = $('#fly'),
-        screenObj = e.touches[0],
-        fp = getFlyPos(),
-        //xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
-        xx = screenObj.pageX - fp.w/2-10,
-        yy = screenObj.pageY - fp.h*1.5;
-    
-    
-    
-    var targetID = $(screenObj.target).parent().attr('id') || 
-                    $(screenObj.target).attr('id');
-    
-    if(!!targetID && ["01","02","03"].indexOf(targetID) != -1){
-        copycolorsInFly("#"+targetID);
-        fly.css('display',"block");
-        fly.css('top',yy +"px");
-        fly.css('left',xx +"px");
-        oSettings.lastSelector = '#' + targetID;
+    tryC(function(){
 
-        $('body').bind('touchmove', TouchMove);
-        oSettings.hitTestInterval = setInterval(HitTest, 200);
-    }
-    
+        var e = event.originalEvent,
+            fly = $('#fly'),
+            screenObj = e.touches[0],
+            fp = getFlyPos(),
+            //xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
+            xx = screenObj.pageX - fp.w/2-10,
+            yy = screenObj.pageY - fp.h*1.5;
+        
+        
+        
+        var targetID = $(screenObj.target).parent().attr('id') || 
+                        $(screenObj.target).attr('id');
+        
+        if(!!targetID && ["01","02","03"].indexOf(targetID) != -1){
+            copycolorsInFly("#"+targetID);
+            fly.css('display',"block");
+            fly.css('top',yy +"px");
+            fly.css('left',xx +"px");
+            oSettings.lastSelector = '#' + targetID;
+
+            $('body').bind('touchmove', TouchMove);
+            oSettings.hitTestInterval = setInterval(HitTest, 200);
+        }
+    });
     // console.log(targetID,screenObj);
     e.preventDefault();
+
 }
 function TouchMove (event) {
-    var screenObj = event.originalEvent.touches[0],
-        fp = getFlyPos(),
-    	//xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
-        xx = screenObj.pageX - fp.w/2-10,
-        yy = screenObj.pageY - fp.h*1.5;
-        
-    $('#fly').css('top',yy +"px");
-    $('#fly').css('left',xx +"px");
+    tryC(function(){
 
-    // HitTest();
+        var screenObj = event.originalEvent.touches[0],
+            fp = getFlyPos(),
+        	//xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
+            xx = screenObj.pageX - fp.w/2-10,
+            yy = screenObj.pageY - fp.h*1.5;
+            
+        $('#fly').css('top',yy +"px");
+        $('#fly').css('left',xx +"px");
 
+        // HitTest();
+    });
     event.originalEvent.preventDefault();
 }
 function copycolorsInFly(fromID){
-    var color, isColor;
-    for(var i=0;i<=9;i++){
-        color = $($(fromID+" div")[i]).css("background-color")
-        isColor = color == "rgb(0, 0, 0)"? EMPTY_COLOR: color;
-        $($("#fly div")[i]).css("background-color", isColor)
-    }
+    tryC(function(){
+
+        var color, isColor;
+        for(var i=0;i<=9;i++){
+            color = $($(fromID+" div")[i]).css("background-color")
+            isColor = color == "rgb(0, 0, 0)"? EMPTY_COLOR: color;
+            $($("#fly div")[i]).css("background-color", isColor)
+        }
+    });
 }
 
 function HitTest() {
-    var posDesk, 
-        posFly = $($('#fly div')[0]).position(), 
-        posParent = $('#fly').position(), 
-        dx, dy, d = 120,
-        currentEl;
     
-    setMap();
-    
+    try{
+        var posDesk, 
+            posFly = $($('#fly div')[0]).position(), 
+            posParent = $('#fly').position(), 
+            dx, dy, d = 120,
+            currentEl;
+        
+        setMap();
+        
 
-    for(var i=1; i<=6;i++){
-        for(var j=1; j<=6;j++){
-            posDesk = $( ".container div#x"+j+"y"+i).position();
-            dx = posDesk.left - (posParent.left + posFly.left);
-            dy = posDesk.top - (posParent.top + posFly.top);
-            if(dx > 0 && dx < d && dy > 0 && dy < d ){
-                if(isCan(j, i)){
-                    setColorFly(j,i,0);
-                    setColorFly(j+1,i,1);
-                    setColorFly(j+2,i,2);
-                    setColorFly(j,i+1,3);
-                    setColorFly(j+1,i+1,4);
-                    setColorFly(j+2,i+1,5);
-                    setColorFly(j,i+2,6);
-                    setColorFly(j+1,i+2,7);
-                    setColorFly(j+2,i+2,8);
+        for(var i=1; i<=6;i++){
+            for(var j=1; j<=6;j++){
+                posDesk = $( ".container div#x"+j+"y"+i).position();
+                dx = posDesk.left - (posParent.left + posFly.left);
+                dy = posDesk.top - (posParent.top + posFly.top);
+                if(dx > 0 && dx < d && dy > 0 && dy < d ){
+                    if(isCan(j, i)){
+                        setColorFly(j,i,0);
+                        setColorFly(j+1,i,1);
+                        setColorFly(j+2,i,2);
+                        setColorFly(j,i+1,3);
+                        setColorFly(j+1,i+1,4);
+                        setColorFly(j+2,i+1,5);
+                        setColorFly(j,i+2,6);
+                        setColorFly(j+1,i+2,7);
+                        setColorFly(j+2,i+2,8);
+                    }
+                    return;
                 }
-                return;
             }
         }
+    }catch(e){
+        log(e.stack.toString());
     }
 }
 function setMap(){
-	$('.container div').css('background-color', '');
-    $( ".container .b").removeClass('b');
-    $( "#fly .b").removeClass('b');
-    for(var i=1; i<=8;i++){
-        for(var j=1; j<=8;j++){
-            setColor(i,j,oSettings.map[i-1][j-1])
+    tryC(function(){
+        $('.container div').css('background-color', '');
+        $( ".container .b").removeClass('b');
+        $( "#fly .b").removeClass('b');
+        for(var i=1; i<=8;i++){
+            for(var j=1; j<=8;j++){
+                setColor(i,j,oSettings.map[i-1][j-1])
+            }
         }
-    }
+    });
 }
 function saveMap(){
-    var c;
-    for(var i=1; i<=8;i++){
-        for(var j=1; j<=8;j++){
-            c = $( ".container div#x"+i+"y"+j).css("background-color");
-            oSettings.map[i-1][j-1] = c == oSettings.emptyColor? 0: c;
+    tryC(function(){
+        var c;
+        for(var i=1; i<=8;i++){
+            for(var j=1; j<=8;j++){
+                c = $( ".container div#x"+i+"y"+j).css("background-color");
+                oSettings.map[i-1][j-1] = c == oSettings.emptyColor? 0: c;
+            }
         }
-    }
+    });
 }
 
 function setColor(x,y,color){
-    var el = $( ".container div#x"+x+"y"+y);
-    // console.log(color)
-    if(el.length && color != EMPTY_COLOR && color != 0){
-        el.css("background-color", color);
-        el.addClass('b');
-        return true;
+    try{
+        var el = $( ".container div#x"+x+"y"+y);
+        // console.log(color)
+        if(el.length && color != EMPTY_COLOR && color != 0){
+            el.css("background-color", color);
+            el.addClass('b');
+            return true;
+        }
+        return false;
+    }catch(e){
+        log(e.stack.toString());
     }
-    return false;
 }
 function setColorFly(x,y,id){
     setColor(x, y, $($('#fly div')[id]).css("background-color"))
 }
 function TouchEnd (event) {
     var e = event.originalEvent;
-    $('#fly').css('display',"none");
-    saveMap();
-    if( oSettings.hash != hash2(oSettings.map.toString())){
-        reDrowElement(oSettings.lastSelector)
-    }
-    isLineDel();
-    oSettings.hash = hash2(oSettings.map.toString());
-    $('body').unbind('touchmove', TouchMove);
-    clearInterval(oSettings.hitTestInterval);
-    if(isGameOver()){
-    	
-		$(".windowLayer .Menu").css("display", "none");
-		$(".windowLayer .GameOver").css("display", "block");
-		ShowHideElement($('.windowLayer'), true);
-		$('body').unbind('touchstart', TouchStart);
-		$('body').unbind('touchend', TouchEnd);
-		
-    }
+    tryC(function () {
+        
+        $('#fly').css('display',"none");
+        saveMap();
+        if( oSettings.hash != hash2(oSettings.map.toString())){
+            reDrowElement(oSettings.lastSelector)
+        }
+        isLineDel();
+        oSettings.hash = hash2(oSettings.map.toString());
+        $('body').unbind('touchmove', TouchMove);
+        clearInterval(oSettings.hitTestInterval);
+        if(isGameOver()){
+            
+            $(".windowLayer .Menu").css("display", "none");
+            $(".windowLayer .GameOver").css("display", "block");
+            ShowHideElement($('.windowLayer'), true);
+            $('body').unbind('touchstart', TouchStart);
+            $('body').unbind('touchend', TouchEnd);
+            
+        }
+    })
     e.preventDefault();
 }
 function getFlyPos() {
