@@ -23,7 +23,7 @@ body {
   display: inline-flex;
   padding: 0;
   border-radius: 9vw;
-  transition: transform 0.5s, border-radius 0.2s;
+  transition: background-color 0.5s, transform 0.5s;
 }
 
 @media screen and (orientation: landscape) { 
@@ -124,13 +124,14 @@ body {
 }
 
 .preloader::after {
-  content: "Powered by Giper-Troniks (2016) DEBUG 4";
+  content: "Powered by Giper-Troniks (2016)";
   font-size: 4vw;
   bottom: 6vh;
   position: absolute;
   left: 0;
   right: 0;
-  text-shadow: 1px 1px 1px #FFF;
+  color: #fff;
+  text-shadow: 0px 0px 9px #FFF, 0px 0px 21px #FFF;
 }
 
 .preloader::before {
