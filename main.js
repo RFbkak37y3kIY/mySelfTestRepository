@@ -78,7 +78,7 @@ function main() {
              ShowHideElement($('.windowLayer .Menu'),true);
         });
         oSettings.screenWidth = $('.layer').width()-$('#fly').width()-10;
-        log(navigator.appVersion);
+        //log(navigator.appVersion);
         setTimeout(function(){
             ShowHideElement($('.preloader'), false);
             
@@ -132,16 +132,17 @@ function reDrowElement(id){
     // return arguments.callee;
 }
 function TouchStart (event) {
-    tryC(function(){
-
-        var e = event.originalEvent,
-            fly = $('#fly'),
+	var e = event.originalEvent,
+	fly = $('#fly'),
             screenObj = e.touches[0],
             fp = getFlyPos(),
             //xx = Math.max(0,Math.min(screenObj.pageX - fp.w/2, oSettings.screenWidth))-10,
             xx = screenObj.pageX - fp.w/2-10,
             yy = screenObj.pageY - fp.h*1.5;
         
+    tryC(function(){
+        
+            
         
         
         var targetID = $(screenObj.target).parent().attr('id') || 
@@ -320,7 +321,7 @@ function isCan(x, y){
     return out;
 }
 function hash2 (ss, l){
-    l=l||32;ss=ss||"";var a=new Uint8Array(ss.split('').map(function(a){return a.charCodeAt(0)})),
+    l=l||32;ss=ss||"";var a=new Array(ss.split('').map(function(a){return a.charCodeAt(0)})),
     s=a.length||1,i=a.length?a.reduce(function(p,c){return p+c}):1,s="",A,B,k=0,tan=Math.tan;
     while (s.length < l){A=a[k++%s]||0.5;B=a[k++%s]||1.5;i=i+(A^B)%l;s+=tan(i*B/A).toString(16).split('.')[1];}
     return s.slice(0, l);
