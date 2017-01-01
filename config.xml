@@ -1,39 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.Arcade01"
-        version   = "1.0.3">
+        id        = "com.gipertroniks.HoneycombPuzzle"
+        version   = "1.0.0">
 
-    <name>BLOB puzzle</name>
-
+    <name>Honeycomb Puzzle</name>
     <description>
-        BLOB puzzle sample application that responds to the deviceready event.
+        Honeycomb Puzzle sample application that responds to the deviceready event.
     </description>
-
     <author href="http://www.ug-net.com" email="support@ug-net.com">
-        Giper-Troniks Private Enterprise (UA)
+        Giper-Troniks Private Enterprise 2016 ©
     </author>
-
-    <!--
-        If you do not want any permissions to be added to your app, add the
-        following tag to your config.xml; you will still have the INTERNET
-        permission on your app, which PhoneGap requires.
-    -->
     <preference name="permissions" value="none"/>
 
     <access origin="*"/>
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    <icon src="res/icon.png" />
-    <preference name="android-targetSdkVersion" value="19"/>
-    <!-- preference name='phonegap-version' value='cli-5.1.1' / -->
+    <icon src="res/icone.png" />
     <platform name="android">
-        <!-- gap:plugin name="com-admob-plugin" version="5.3.1" source="npm"/ -->
-        <plugin name="cordova-plugin-whitelist"  />
-        <plugin name="cordova-plugin-crosswalk-webview"  />
-        <preference name="xwalkVersion" value="org.xwalk:xwalk_core_library:14+" />
+        <plugin name="cordova-plugin-admobpro" source="npm" />
+        <preference name="Fullscreen" value="true" />
         <allow-intent href="market:*" />
         <preference name="Orientation" value="portrait" />
     </platform>
