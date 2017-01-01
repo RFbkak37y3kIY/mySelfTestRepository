@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.gipertroniks.HoneycombPuzzle"
-        version   = "1.0.0">
+        id        = "com.phonegap.Arcade01"
+        version   = "1.0.4">
 
-    <name>Honeycomb Puzzle</name>
+    <name>BLOB puzzle</name>
+
     <description>
-        Honeycomb Puzzle sample application that responds to the deviceready event.
+        BLOB puzzle sample application that responds to the deviceready event.
     </description>
+
     <author href="http://www.ug-net.com" email="support@ug-net.com">
-        Giper-Troniks Private Enterprise 2016 ©
+        Giper-Troniks Private Enterprise (UA)
     </author>
     <preference name="permissions" value="none"/>
 
     <access origin="*"/>
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    <icon src="res/icone.png" />
+    <icon src="res/icon.png" />
+    
     <platform name="android">
         <plugin name="cordova-plugin-admobpro" source="npm" />
-        <preference name="Fullscreen" value="true" />
         <allow-intent href="market:*" />
         <preference name="Orientation" value="portrait" />
     </platform>
