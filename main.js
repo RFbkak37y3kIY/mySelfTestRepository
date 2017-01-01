@@ -408,7 +408,7 @@ function adSetter(){
         isTesting:true, //Remove this Before publishing your app
         adId:'ca-app-pub-3173494086156566/7089760737', 
         adSize: AdMob.AD_SIZE.FULL_BANNER,
-        position:AdMob.AD_POSITION.NO_CHANGE, 
+        //position:AdMob.AD_POSITION.NO_CHANGE, 
         autoShow:true
     } );
 }
