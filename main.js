@@ -1,7 +1,7 @@
 'use strict';
 
 function log(a){
-	$('body').append('<div class="error">' + a + '</div>');
+//	$('body').append('<div class="error">' + a + '</div>');
 }
 function tryC(c){
 	try {
@@ -54,6 +54,11 @@ function main() {
         setBestScore(parseInt(window.localStorage.getItem("best-score")) || 0);
         setupScreen();
         var onClickToStart = function(e){
+        	try{
+        		adSetter();
+        	}catch(e){
+        		
+        	}
             $('.score').html(0);
             ShowHideElement($('.windowLayer'), false);
             $('body').bind('touchstart', TouchStart);
@@ -397,4 +402,12 @@ function setBestScore(n){
 	oSettings.BestScore = n;
 	$('.score-best').html(oSettings.BestScore);
 	window.localStorage.setItem("best-score", oSettings.BestScore);
+}
+function adSetter(){
+	if(AdMob) AdMob.createBanner( {
+        isTesting:true, //Remove this Before publishing your app
+        adId:'ca-app-pub-3173494086156566/7089760737', 
+        position:AdMob.AD_POSITION.TOP_CENTER, 
+        autoShow:true
+    } );
 }
