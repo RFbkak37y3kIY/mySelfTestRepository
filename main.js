@@ -406,7 +406,7 @@ function setBestScore(n){
 function adSetter(){
 	if(AdMob) AdMob.createBanner( {
         //isTesting:true, //Remove this Before publishing your app
-        adId:'ca-app-pub-3173494086156566/7089760737', 
+        adId:'ca-app-pub-3173494086156566/5523152337', 
         adSize: AdMob.AD_SIZE.SMART_BANNER,
         position:AdMob.AD_POSITION.BOTTOM_CENTER, 
         autoShow:true
